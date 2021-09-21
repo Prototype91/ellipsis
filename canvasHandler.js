@@ -28,11 +28,12 @@ function main() {
   arcWrapper.position.set(WIDTH_CENTER, HEIGHT_CENTER);
 
    app.ticker.add((delta) => {
-    arcWrapper.rotation -= 0.01 * delta;
+    //arcWrapper.rotation -= 0.01 * delta;
   });
 }
 
 document.addEventListener('mousemove', (e) => {
-  console.log(event.clientX, event.clientY);
+  const dir = -Math.atan2(event.clientX - WIDTH_CENTER, event.clientY - HEIGHT_CENTER);
+  arcWrapper.rotation = dir + 0.25;
 });
 window.onload = main();
