@@ -1,6 +1,6 @@
 const CIRCLE_SIZE = 250;
 const WIDTH_CENTER = window.innerWidth / 2;
-const HEIGHT_CENTER = window.innerWidth / 2;
+const HEIGHT_CENTER = window.innerHeight / 2;
 
 const arc = new PIXI.Graphics();
 let arcWrapper = new PIXI.Container();;
@@ -10,7 +10,6 @@ function main() {
   document.body.appendChild(app.view);
   const graphics = new PIXI.Graphics();
 
-  let elapsed = 0.0;
   graphics.lineStyle(2, 0xFFFFFF, 1);
   graphics.beginFill(0xAA4F08, 1);
   graphics.drawEllipse(WIDTH_CENTER, HEIGHT_CENTER, CIRCLE_SIZE, CIRCLE_SIZE);
@@ -26,14 +25,10 @@ function main() {
   app.stage.addChild(arcWrapper);
 
   arcWrapper.position.set(WIDTH_CENTER, HEIGHT_CENTER);
-
-   app.ticker.add((delta) => {
-    //arcWrapper.rotation -= 0.01 * delta;
-  });
 }
 
 document.addEventListener('mousemove', (e) => {
-  const dir = -Math.atan2(event.clientX - WIDTH_CENTER, event.clientY - HEIGHT_CENTER);
+  const dir = -(Math.atan2(event.clientX - WIDTH_CENTER, event.clientY - HEIGHT_CENTER));
   arcWrapper.rotation = dir + 0.25;
 });
-window.onload = main();
+window.onload = main;
