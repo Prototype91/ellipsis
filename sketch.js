@@ -5,8 +5,6 @@ let pitch;
 async function setup() {
   audioContext = new AudioContext();
   const video = document.createElement('VIDEO');
-  video.src = './musics/beethoven.mp4';
-  video.play();
   video.onplay = function() {
     const stream = video.captureStream();
     startPitch(stream, audioContext);
@@ -28,11 +26,7 @@ function modelLoaded() {
 
 function getPitch() {
   pitch.getPitch(function(err, frequency) {
-    if (frequency) {
       console.log(frequency);
-      document.querySelector('#result').textContent = frequency;
-    } else {
-      document.querySelector('#result').textContent = 'No pitch detected';
-    }
+      return frequency;
   })
 }
