@@ -1,38 +1,43 @@
-let audioContext;
-let mic;
-let pitch;
+class SketchClass {
 
-async function setup() {
-  audioContext = new AudioContext();
-  const video = document.createElement('VIDEO');
-  video.src = './musics/beethoven.mp4';
-  video.play();
-  video.onplay = function() {
-    const stream = video.captureStream();
-    startPitch(stream, audioContext);
+  pitch = null
+  
+  constructor () {
+    this.audioContext = new AudioContext();
+    this.audio = document.getElementById('audio');
+    this.setup();
   }
 
-}
-setup();
-
-function startPitch(stream, audioContext) {
-  pitch = ml5.pitchDetection('./model/', audioContext , stream, modelLoaded);
-}
-
-function modelLoaded() {
-  document.querySelector('#status').textContent='Model Loaded';
-  setInterval(() => {
-    getPitch();
-  }, 250);
-}
-
-function getPitch() {
-  pitch.getPitch(function(err, frequency) {
-    if (frequency) {
-      console.log(frequency);
-      document.querySelector('#result').textContent = frequency;
-    } else {
-      document.querySelector('#result').textContent = 'No pitch detected';
+  setup () {
+    this.audio.onplay = () => {
+      const stream = audio.captureStream();
+      this.startPitch(stream)
     }
-  })
+    // this.audio.muted = true;
+    this.audio.volume = 1;
+    this.audio.play();
+    console.log('soong played')
+  }
+
+  async startPitch (stream) {
+    this.pitch = await ml5.pitchDetection('./model/', this.audioContext , stream, this.modelLoaded);
+    this.listenPitch();
+  }
+
+  modelLoaded () {
+    console.log('Model loaded');
+  }
+
+  listenPitch () {
+    setInterval(() => {
+      this.getPitch()
+    }, 250)
+  }
+
+  getPitch () {
+    this.pitch.getPitch(function(err, frequency) {
+      console.log(frequency);
+      return frequency;
+    })
+  }
 }
