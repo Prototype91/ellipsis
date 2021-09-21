@@ -1,23 +1,12 @@
-
-
-// Copyright (c) 2019 ml5
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
-
-/* ===
-ml5 Example
-Basic Pitch Detection
-=== */
-
 let audioContext;
 let mic;
 let pitch;
 
 async function setup() {
   audioContext = new AudioContext();
-  //stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
-  const video = document.querySelector('video');
+  const video = document.createElement('VIDEO');
+  video.src = './musics/beethoven.mp4';
+  video.play();
   video.onplay = function() {
     const stream = video.captureStream();
     startPitch(stream, audioContext);
