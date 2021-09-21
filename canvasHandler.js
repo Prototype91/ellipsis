@@ -46,20 +46,28 @@ function main() {
 
   let note = createCircle(25, 0xFFFFFF);
 
-  let i = 0;
-  let travel = setInterval(() => {
-    i += 10;
-    note.position.set(i, 0);
+  const temp = 300;
+  const rad = (360 * Math.PI * temp) / (800 * 180);
 
-    if (i > CIRCLE_SIZE - 12.5) {
-      if (note.rotation < arcWrapper.rotation + ((1/10) * Math.PI) && note.rotation < arcWrapper.rotation - ((1/10) * Math.PI)) {
-        console.log(false);
-      } else {
-        console.log(true);
+  const maxX = Math.cos(rad) * CIRCLE_SIZE;
+  const maxY = Math.sin(rad) * CIRCLE_SIZE;
+
+  let i = 0;
+
+    let travel =  setInterval(() => {
+      if (i >= 100) {
+        if (rad < arcWrapper.rotation + ((1/10) * Math.PI) && rad < arcWrapper.rotation - ((1/10) * Math.PI)) {
+          console.log(false);
+        } else {
+          console.log(true);
+        }
+        clearInterval(travel);
       }
-      clearInterval(travel);
-    }
-  }, 100);
+      const x = (maxX / 100) * i;
+      const y = (maxY / 100) * i;
+      note.position.set(x, y);
+      i++;
+    }, 10);
 }
 
 document.addEventListener('mousemove', (e) => {
