@@ -31,7 +31,7 @@ function createArc() {
   const arc = new PIXI.Graphics();
 
   arc.lineStyle(5, 0xAA00BB, 1);
-  arc.arc(0, 0, CIRCLE_SIZE, Math.PI / 3, Math.PI / 2);
+  arc.arc(0, 0, CIRCLE_SIZE, -1/4, 1/4);
 
   arcWrapper.addChild(arc);
 
@@ -45,7 +45,6 @@ function main() {
   createArc();
 
   let note = createCircle(25, 0xFFFFFF);
-  console.log('NOTE', note)
 
   let i = 0;
   let travel = setInterval(() => {
@@ -53,15 +52,19 @@ function main() {
     note.position.set(i, 0);
 
     if (i > CIRCLE_SIZE - 12.5) {
+      if (note.rotation < arcWrapper.rotation + ((1/10) * Math.PI) && note.rotation < arcWrapper.rotation - ((1/10) * Math.PI)) {
+        console.log(false);
+      } else {
+        console.log(true);
+      }
       clearInterval(travel);
     }
-
   }, 100);
 }
 
 document.addEventListener('mousemove', (e) => {
   const dir = -(Math.atan2(event.clientX - WIDTH_CENTER, event.clientY - HEIGHT_CENTER));
-  arcWrapper.rotation = dir + 0.25;
+  arcWrapper.rotation = dir + (Math.PI / 2);
 });
 
 window.onload = main;
