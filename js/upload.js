@@ -13,8 +13,19 @@ const toBase64 = (file) => {
    reader.readAsDataURL(file);
    reader.onload = function () {
     document.getElementById('audio').src = reader.result;
+    let sketch = new SketchClass()
+    setTimeout(() => {
+      cloneAudio()
+    }, 5000) // Interval entre les deux lancements
    };
    reader.onerror = function (error) {
      console.log('Error: ', error);
    };
 };
+
+const cloneAudio = () => {
+  const audioClone = audio.cloneNode(true);
+  audioClone.muted = false;
+  audioClone.volume = 1;
+  // audioClone.play();
+}
