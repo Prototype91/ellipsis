@@ -108,6 +108,11 @@ function createBall (frequency) {
       }
       const pourcentage = (score / maxScore) * 100;
       document.querySelector('#score').innerHTML = Math.ceil(pourcentage) + '%';
+      console.log(pourcentage, maxScore);
+      if (pourcentage < 50 && maxScore > 20) {
+        document.querySelector('#myModal').style.display = 'block';
+        document.querySelector('#game-over').style.display = 'block';
+      }
       note.destroy();
       clearInterval(travel);
     } else {
