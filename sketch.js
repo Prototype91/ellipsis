@@ -34,11 +34,15 @@ class SketchClass {
     }, 250)
   }
 
-  getPitch () {
-    this.pitch.getPitch(function(err, frequency) {
+  async getPitch () {
+    let isFrequency = false
+    while (!isFrequency) {
+      const frequency = await this.pitch.getPitch()
       if (frequency) {
         createBall(frequency)
+        isFrequency = true
       }
-    })
+    }
+    
   }
 }
