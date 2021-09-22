@@ -2,6 +2,8 @@ const CIRCLE_SIZE = 250;
 const WIDTH_CENTER = window.innerWidth / 2;
 const HEIGHT_CENTER = window.innerHeight / 2;
 const NOTE_SIZE = 15;
+let score = 0;
+let maxScore = 0;
 
 let arcWrapper = new PIXI.Container();
 
@@ -59,11 +61,16 @@ function createBall (frequency) {
 
     let travel =  setInterval(() => {
       if (i >= 100) {
+        maxScore += 1;
+
         if (rad < arcWrapper.rotation + ((1/10) * Math.PI) && rad < arcWrapper.rotation - ((1/10) * Math.PI)) {
           console.log(false);
         } else {
           console.log(true);
+          score += 1;
         }
+        const pourcentage = (score / maxScore) * 100;
+        document.querySelector('#score').innerHTML = Math.ceil(pourcentage) + '%';
         note.parent.removeChild(note);
         clearInterval(travel);
       }

@@ -12,13 +12,32 @@
   <style>
     body {
       margin: 0;
-      cursor: none;
+      cursor: crosshair;
+    }
+
+    #score {
+      position: fixed;
+      top: 5%;
+      right: 5%;
+      color: #fff;
+      font-size: 20px;
+    }
+
+    form {
+      position: fixed;
+      left: 0;
+      top: 0;
+    }
+
+    audio {
+      display: none;
     }
 
   </style>
 </head>
 
 <body>
+  <span id="score">0%</span>
   <form id="form">
     <label for="file">Fichier</label>
     <input type="file" name="file" id="file">
