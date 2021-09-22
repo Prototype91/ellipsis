@@ -2,6 +2,7 @@ const CIRCLE_SIZE = 250;
 const WIDTH_CENTER = window.innerWidth / 2;
 const HEIGHT_CENTER = window.innerHeight / 2;
 const NOTE_SIZE = 15;
+const PRECISION = 6.25;
 
 let score = 0;
 let maxScore = 0;
@@ -47,7 +48,6 @@ function createArc() {
 function main() {
   createCircle(CIRCLE_SIZE, 0xffffff, 0x00000 );
   createArc();
-  createBall(600);
 }
 
 function createBall(frequency) {
@@ -63,13 +63,27 @@ function createBall(frequency) {
   let travel =  setInterval(() => {
     if (i >= 100) {
       maxScore += 1;
-      console.log(rad, arcWrapper.rotation)
-      if (rad < arcWrapper.rotation + ((1/10) * Math.PI) && rad < arcWrapper.rotation - ((1/10) * Math.PI)) {
+      let rotationWrapper = arcWrapper.rotation
+      if (rotationWrapper < 0) {
+        rotationWrapper += PRECISION;
+      }
+      let min = rotationWrapper - ((1/10) * Math.PI);
+      let max = rotationWrapper + ((1/10) * Math.PI);
+      let specialVerif = max > PRECISION;
+
+      if (specialVerif) {
+        max -= PRECISION;
+      }
+
+      console.log(rotationWrapper)
+      console.log(min, rad, max)
+
+      if ((rad >= min && rad <= max && !specialVerif) || ((rad >= min || rad <= max) && specialVerif)) {
+        score += 1;
+        console.log(true);
+      } else {
         console.log(false);
         failNotes++;
-      } else {
-        console.log(true);
-        score += 1;
       }
       const pourcentage = (score / maxScore) * 100;
       document.querySelector('#score').innerHTML = Math.ceil(pourcentage) + '%';
