@@ -31,7 +31,7 @@ class SketchClass {
   listenPitch () {
     setInterval(() => {
       this.getPitch()
-    }, 250)
+    }, 300)
   }
 
   async getPitch () {

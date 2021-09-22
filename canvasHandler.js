@@ -1,6 +1,7 @@
 const CIRCLE_SIZE = 250;
 const WIDTH_CENTER = window.innerWidth / 2;
 const HEIGHT_CENTER = window.innerHeight / 2;
+const NOTE_SIZE = 15;
 
 let arcWrapper = new PIXI.Container();
 
@@ -10,13 +11,13 @@ document.body.appendChild(app.view);
 
 let triangleWidth = 50;
 
-function createCircle(circleSize, color) {
+function createCircle(circleSize, color, border) {
   const circle = new PIXI.Graphics();
 
   let circleWrapper = new PIXI.Container();
   
-  circle.lineStyle(2, 0xFFFFFF, 1);
-  circle.beginFill(color, 1);
+  circle.lineStyle(2, color, 1);
+  circle.beginFill(border, 1);
   circle.drawEllipse(WIDTH_CENTER, HEIGHT_CENTER, circleSize, circleSize);
   circle.endFill();
 
@@ -30,7 +31,7 @@ function createCircle(circleSize, color) {
 function createArc() {
   const arc = new PIXI.Graphics();
 
-  arc.lineStyle(5, 0xAA00BB, 1);
+  arc.lineStyle(10, 0xFF0000, 1);
   arc.arc(0, 0, CIRCLE_SIZE, -1/4, 1/4);
 
   arcWrapper.addChild(arc);
@@ -41,18 +42,18 @@ function createArc() {
 }
 
 function main() {
-  createCircle(CIRCLE_SIZE, 0x76AB59);
+  createCircle(CIRCLE_SIZE, 0xffffff, 0x00000 );
   createArc();  
 }
 
 function createBall (frequency) {
-  let note = createCircle(25, 0xFFFFFF);
+  let note = createCircle(NOTE_SIZE, 0xFFFFFF, 0xFFFFFF);
 
   const temp = 300;
   const rad = (360 * Math.PI * frequency) / (800 * 180);
 
-  const maxX = Math.cos(rad) * CIRCLE_SIZE;
-  const maxY = Math.sin(rad) * CIRCLE_SIZE;
+  const maxX = Math.cos(rad) * (CIRCLE_SIZE - (NOTE_SIZE));
+  const maxY = Math.sin(rad) * (CIRCLE_SIZE - (NOTE_SIZE));
 
   let i = 0;
 
@@ -70,7 +71,7 @@ function createBall (frequency) {
       const y = (maxY / 100) * i;
       note.position.set(x, y);
       i++;
-    }, 10);
+    }, 15);
 }
 
 document.addEventListener('mousemove', (e) => {

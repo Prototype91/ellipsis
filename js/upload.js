@@ -16,7 +16,7 @@ const toBase64 = (file) => {
     let sketch = new SketchClass()
     setTimeout(() => {
       cloneAudio()
-    }, 1000) // Interval entre les deux lancements
+    }, 1500) // Interval entre les deux lancements
    };
    reader.onerror = function (error) {
      console.log('Error: ', error);
