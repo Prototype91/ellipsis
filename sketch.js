@@ -15,7 +15,6 @@ class SketchClass {
     }
     this.audio.volume = 0.001;
     this.audio.play();
-    console.log('soong played')
   }
 
   async startPitch(stream) {

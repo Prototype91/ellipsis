@@ -75,14 +75,9 @@ function createBall(frequency) {
         max -= PRECISION;
       }
 
-      console.log(rotationWrapper)
-      console.log(min, rad, max)
-
       if ((rad >= min && rad <= max && !specialVerif) || ((rad >= min || rad <= max) && specialVerif)) {
         score += 1;
-        console.log(true);
       } else {
-        console.log(false);
         failNotes++;
       }
       const pourcentage = (score / maxScore) * 100;

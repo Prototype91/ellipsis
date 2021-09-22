@@ -45,7 +45,6 @@ const cloneAudio = () => {
   audioClone.play();
   audioClone.addEventListener('ended', () => {
     setTimeout(() => {
-      console.log('ended');
       const score = getScore()
       document.getElementById('notes-succeed').innerHTML = score.succeed;
       document.getElementById('notes-failed').innerHTML = score.failed;
