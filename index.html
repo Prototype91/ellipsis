@@ -37,6 +37,7 @@
     }
 
     .modal {
+      cursor: initial;
       display: none;
       /* Hidden by default */
       position: fixed;
@@ -65,6 +66,7 @@
       padding: 20px;
       border: 1px solid #888;
       width: 80%;
+      max-width: 1000px;
       /* Could be more or less, depending on screen size */
     }
 
@@ -93,6 +95,9 @@
     <!-- Modal content -->
     <div class="modal-content">
       <span class="close">&times;</span>
+      <div id="no-chrome" style="display: none;">
+        <h2>Ce jeu fonctionne uniquement sur un navigateur Chromium</h2>
+      </div>
       <div id="score-container" style="display: none;">
         <p>Pourcentage de réussite : <span id="percent"></span></p>
         <table>
@@ -108,8 +113,8 @@
           </tr>
         </table>
       </div>
-      <form id="form">
-        <p>Choisissez une musique</p>
+      <form id="form" style="display: none;">
+        <h2>Choisissez une musique</h2>
         <label for="file">Fichier</label>
         <input type="file" name="file" id="file">
 

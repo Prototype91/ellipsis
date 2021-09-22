@@ -3,6 +3,13 @@ const rythm = new Rythm();
 let pulseRatio = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
+  if (!window.chrome) {
+    document.querySelector('#no-chrome').style.display = 'block';
+  } else {
+    document.querySelector('#form').style.display = 'block';
+  }
+
+
   const input = document.getElementById('file');
 
   let form = document.getElementById('form');
@@ -16,17 +23,14 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       error.innerHTML = 'Veuillez saisir un fichier audio ...';
     }
-  })
+  });
 
   const modal = document.getElementById("myModal");
   modal.style.display = "block";
 
   const span = document.getElementsByClassName("close")[0];
   span.onclick = function() {
-    if (input.files && input.files[0]) {
-      console.log(input.files);
-      modal.style.display = "none";
-    }
+    modal.style.display = "none";
   }
 
   window.onclick = function(event) {
