@@ -18,7 +18,21 @@ class SketchClass {
     this.audio.addEventListener('ended', () => {
       setTimeout(() => {
         console.log('ended')
-        const score = getScore()
+        const score = getScore();
+        let rank = 'F';
+        if (score.percent >= 95) {
+          rank = 'S';
+        } else if(score.percent >= 90) {
+          rank = 'A';
+        } else if (score.percent >= 80) {
+          rank = 'B';
+        } else if(score.percent >= 70) {
+          rank = 'C'
+        } else if (score.percent >= 60) {
+          rank = 'D';
+        }
+        
+        document.getElementById('rank').innerHTML = rank;
         document.getElementById('notes-succeed').innerHTML = score.succeed;
         document.getElementById('notes-failed').innerHTML = score.failed;
         document.getElementById('notes-total').innerHTML = score.total;
