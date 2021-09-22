@@ -4,11 +4,17 @@ let pulseRatio = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
   const input = document.getElementById('file');
-  document.getElementById('form').addEventListener('submit', (e) => {
+
+  let form = document.getElementById('form');
+  let error = document.getElementById('error');
+  form.addEventListener('submit', (e) => {
     e.preventDefault()
-    modal.style.display = "none";
+    
     if (input.files && input.files[0]) {
       toBase64(input.files[0]);
+      modal.style.display = "none";
+    } else {
+      error.innerHTML = 'Veuillez saisir un fichier audio ...';
     }
   })
 
@@ -17,7 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const span = document.getElementsByClassName("close")[0];
   span.onclick = function() {
-    modal.style.display = "none";
+    if (input.files && input.files[0]) {
+      console.log(input.files);
+      modal.style.display = "none";
+    }
   }
 
   window.onclick = function(event) {
