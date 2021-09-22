@@ -2,15 +2,17 @@ const CIRCLE_SIZE = 250;
 const WIDTH_CENTER = window.innerWidth / 2;
 const HEIGHT_CENTER = window.innerHeight / 2;
 const NOTE_SIZE = 15;
+const PRECISION = 6.25;
+
 let score = 0;
 let maxScore = 0;
+let failNotes = 0;
 
 let arcWrapper = new PIXI.Container();
-
-let app = new PIXI.Application({ width: window.innerWidth, height: window.innerHeight });
-document.body.appendChild(app.view);
-
 let triangleWidth = 50;
+
+let app = new PIXI.Application({ width: window.innerWidth, height: window.innerHeight, resizeTo: window });
+document.body.appendChild(app.view);
 
 function createCircle(circleSize, color, border) {
   const circle = new PIXI.Graphics();
@@ -23,7 +25,7 @@ function createCircle(circleSize, color, border) {
   circle.endFill();
 
   circleWrapper.addChild(circle);
-  
+
   app.stage.addChild(circleWrapper);
 
   return {
@@ -66,7 +68,6 @@ function main() {
 function createBall (frequency) {
   let note = createCircle(NOTE_SIZE, 0xFFFFFF, 0xFFFFFF).parent;
 
-  const temp = 300;
   const rad = (360 * Math.PI * frequency) / (800 * 180);
 
   const maxX = Math.cos(rad) * (CIRCLE_SIZE - (NOTE_SIZE));
@@ -74,32 +75,54 @@ function createBall (frequency) {
 
   let i = 0;
 
-    let travel =  setInterval(() => {
-      if (i >= 100) {
-        maxScore += 1;
+  let travel =  setInterval(() => {
+    if (i >= 100) {
+      maxScore += 1;
+      let rotationWrapper = arcWrapper.rotation
+      if (rotationWrapper < 0) {
+        rotationWrapper += PRECISION;
+      }
+      let min = rotationWrapper - ((1/10) * Math.PI);
+      let max = rotationWrapper + ((1/10) * Math.PI);
+      let specialVerif = max > PRECISION;
 
-        if (rad < arcWrapper.rotation + ((1/10) * Math.PI) && rad < arcWrapper.rotation - ((1/10) * Math.PI)) {
-          //console.log(false);
-        } else {
-          //console.log(true);
-          score += 1;
-        }
-        const pourcentage = (score / maxScore) * 100;
-        document.querySelector('#score').innerHTML = Math.ceil(pourcentage) + '%';
-        note.destroy();
-        clearInterval(travel);
-      } else {
-        const x = (maxX / 100) * i;
-        const y = (maxY / 100) * i;
-        note.position.set(x, y);
-        i++;
+      if (specialVerif) {
+        max -= PRECISION;
       }
 
-    }, 15);
+      if ((rad >= min && rad <= max && !specialVerif) || ((rad >= min || rad <= max) && specialVerif)) {
+        score += 1;
+      } else {
+        failNotes++;
+      }
+      const pourcentage = (score / maxScore) * 100;
+      document.querySelector('#score').innerHTML = Math.ceil(pourcentage) + '%';
+      note.destroy();
+      clearInterval(travel);
+    } else {
+      const x = (maxX / 100) * i;
+      const y = (maxY / 100) * i;
+      note.position.set(x, y);
+      i++;
+    }
+  }, 15);
+}
+
+function getScore() {
+  dataScore =  {
+    succeed: score,
+    failed: failNotes,
+    total: maxScore,
+    percent: Math.ceil((score / maxScore) * 100),
+  };
+  score = failNotes = maxScore = 0;
+  document.querySelector('#score').innerHTML = '0%';
+
+  return dataScore;
 }
 
 document.addEventListener('mousemove', (e) => {
-  const dir = -(Math.atan2(event.clientX - WIDTH_CENTER, event.clientY - HEIGHT_CENTER));
+  const dir = -(Math.atan2(e.clientX - WIDTH_CENTER, e.clientY - HEIGHT_CENTER));
   arcWrapper.rotation = dir + (Math.PI / 2);
 });
 

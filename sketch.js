@@ -1,40 +1,38 @@
 class SketchClass {
 
   pitch = null
-  
-  constructor () {
+
+  constructor() {
     this.audioContext = new AudioContext();
     this.audio = document.getElementById('audio');
     this.setup();
   }
 
-  setup () {
+  setup() {
     this.audio.onplay = () => {
       const stream = audio.captureStream();
       this.startPitch(stream)
     }
-    // this.audio.muted = true;
     this.audio.volume = 0.001;
     this.audio.play();
-    console.log('soong played')
   }
 
-  async startPitch (stream) {
-    this.pitch = await ml5.pitchDetection('./model/', this.audioContext , stream, this.modelLoaded);
+  async startPitch(stream) {
+    this.pitch = await ml5.pitchDetection('./model/', this.audioContext, stream, this.modelLoaded);
     this.listenPitch();
   }
 
-  modelLoaded () {
+  modelLoaded() {
     console.log('Model loaded');
   }
 
-  listenPitch () {
+  listenPitch() {
     setInterval(() => {
       this.getPitch()
     }, 300)
   }
 
-  async getPitch () {
+  async getPitch() {
     let isFrequency = false
     while (!isFrequency) {
       const frequency = await this.pitch.getPitch()
@@ -43,6 +41,6 @@ class SketchClass {
         isFrequency = true
       }
     }
-    
+
   }
 }

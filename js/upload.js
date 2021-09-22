@@ -6,10 +6,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const input = document.getElementById('file');
   document.getElementById('form').addEventListener('submit', (e) => {
     e.preventDefault()
+    modal.style.display = "none";
     if (input.files && input.files[0]) {
       toBase64(input.files[0]);
     }
-  });
+  })
+
+  const modal = document.getElementById("myModal");
+  modal.style.display = "block";
+
+  const span = document.getElementsByClassName("close")[0];
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
 })
 
 const toBase64 = (file) => {
@@ -34,4 +49,17 @@ const cloneAudio = () => {
   rythm.setMusic(this.audio.src);
   rythm.start();
   audioClone.play();
+  audioClone.addEventListener('ended', () => {
+    setTimeout(() => {
+      const score = getScore()
+      document.getElementById('notes-succeed').innerHTML = score.succeed;
+      document.getElementById('notes-failed').innerHTML = score.failed;
+      document.getElementById('notes-total').innerHTML = score.total;
+      document.getElementById('percent').innerHTML = score.percent + '%';
+      document.getElementById('score-container').style.display = 'block';
+      document.getElementById("myModal").style.display = 'block';
+      audioClone.remove()
+    }, 1500)
+    
+  })
 }
