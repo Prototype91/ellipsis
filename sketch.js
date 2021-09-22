@@ -13,8 +13,22 @@ class SketchClass {
       const stream = audio.captureStream();
       this.startPitch(stream)
     }
-    this.audio.volume = 0.001;
+    // this.audio.volume = 0.001;
     this.audio.play();
+    this.audio.addEventListener('ended', () => {
+      setTimeout(() => {
+        console.log('ended')
+        const score = getScore()
+        document.getElementById('notes-succeed').innerHTML = score.succeed;
+        document.getElementById('notes-failed').innerHTML = score.failed;
+        document.getElementById('notes-total').innerHTML = score.total;
+        document.getElementById('percent').innerHTML = score.percent + '%';
+        document.getElementById('score-container').style.display = 'block';
+        document.getElementById("myModal").style.display = 'block';
+        // audioClone.remove()
+      }, 1500)
+      
+    })
   }
 
   async startPitch(stream) {

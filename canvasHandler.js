@@ -1,7 +1,7 @@
 const CIRCLE_SIZE = 250;
 const WIDTH_CENTER = window.innerWidth / 2;
 const HEIGHT_CENTER = window.innerHeight / 2;
-const NOTE_SIZE = 15;
+const NOTE_SIZE = 10;
 const PRECISION = 6.25;
 
 let score = 0;
@@ -11,7 +11,7 @@ let failNotes = 0;
 let arcWrapper = new PIXI.Container();
 let triangleWidth = 50;
 
-let app = new PIXI.Application({ width: window.innerWidth, height: window.innerHeight, resizeTo: window });
+let app = new PIXI.Application({ width: window.innerWidth, height: window.innerHeight, resizeTo: window, antialias: true });
 document.body.appendChild(app.view);
 
 function createCircle(circleSize, color, border) {
@@ -19,7 +19,7 @@ function createCircle(circleSize, color, border) {
 
   let circleWrapper = new PIXI.Container();
   
-  circle.lineStyle(1, border, 1);
+  circle.lineStyle(8, border, 1);
   circle.beginFill(color, 1);
   circle.drawEllipse(WIDTH_CENTER, HEIGHT_CENTER, circleSize, circleSize);
   circle.endFill();
