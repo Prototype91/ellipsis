@@ -11,7 +11,7 @@ let failNotes = 0;
 let arcWrapper = new PIXI.Container();
 let triangleWidth = 50;
 
-let app = new PIXI.Application({ width: window.innerWidth, height: window.innerHeight, resizeTo: window, antialias: true });
+let app = new PIXI.Application({ width: window.innerWidth, height: window.innerHeight, resizeTo: window, antialias: true, backgroundAlpha: 0 });
 document.body.appendChild(app.view);
 
 function createCircle(circleSize, color, border) {
@@ -61,6 +61,17 @@ function main() {
       gameCircle.child.beginFill(0x00000, 1);
       gameCircle.child.drawEllipse(WIDTH_CENTER, HEIGHT_CENTER, CIRCLE_SIZE, CIRCLE_SIZE);
       gameCircle.child.endFill();
+
+      const neon = (elem, value, options = {}) => {
+        elem.style.boxShadow = `#fff 0 0 100px ${((value + 1) * 10) - 5}px`;
+      }
+
+      const resetNeon = elem => {
+        elem.style.boxShadow = '';
+      }
+
+      rythm.addRythm('neon-custom', { dance: neon, reset: resetNeon }, 0, 10)
+
     }
   });
 }

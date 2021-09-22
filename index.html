@@ -18,6 +18,7 @@
     body {
       margin: 0;
       cursor: crosshair;
+      background-color: #000;
     }
 
     .rythm {
@@ -85,11 +86,24 @@
       cursor: pointer;
     }
 
+    .neon-custom {
+      z-index: -1;
+      position: fixed;
+      border-radius: 50%;
+      width: 505px;
+      height: 505px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 160px;
+    }
+
   </style>
 </head>
 
 <body>
   <div class="rythm-bass"></div>
+  <div class="neon-custom"></div>
   <div id="myModal" class="modal">
 
     <!-- Modal content -->
