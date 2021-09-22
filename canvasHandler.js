@@ -107,9 +107,7 @@ function getScore() {
 
 document.addEventListener('mousemove', (e) => {
   const dir = -(Math.atan2(e.clientX - WIDTH_CENTER, e.clientY - HEIGHT_CENTER));
-  // console.log(dir)
   arcWrapper.rotation = dir + (Math.PI / 2);
-  // console.log(arcWrapper.rotation - ((1/10) * Math.PI), arcWrapper.rotation, arcWrapper.rotation + ((1/10) * Math.PI))
 });
 
 window.onload = main;
