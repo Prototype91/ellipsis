@@ -63,6 +63,7 @@ function createBall (frequency) {
         } else {
           console.log(true);
         }
+        note.parent.removeChild(note);
         clearInterval(travel);
       }
       const x = (maxX / 100) * i;
