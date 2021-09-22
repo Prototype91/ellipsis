@@ -1,3 +1,7 @@
+const rythm = new Rythm();
+
+let pulseRatio = 0;
+
 document.addEventListener('DOMContentLoaded', () => {
   const input = document.getElementById('file');
   document.getElementById('form').addEventListener('submit', (e) => {
@@ -5,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (input.files && input.files[0]) {
       toBase64(input.files[0]);
     }
-  })
+  });
 })
 
 const toBase64 = (file) => {
@@ -13,7 +17,7 @@ const toBase64 = (file) => {
    reader.readAsDataURL(file);
    reader.onload = function () {
     document.getElementById('audio').src = reader.result;
-    let sketch = new SketchClass()
+    let sketch = new SketchClass();
     setTimeout(() => {
       cloneAudio()
     }, 1500) // Interval entre les deux lancements
@@ -27,5 +31,7 @@ const cloneAudio = () => {
   const audioClone = audio.cloneNode(true);
   audioClone.muted = false;
   audioClone.volume = 1;
+  rythm.setMusic(this.audio.src);
+  rythm.start();
   audioClone.play();
 }

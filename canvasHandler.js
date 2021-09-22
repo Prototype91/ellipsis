@@ -7,7 +7,6 @@ let maxScore = 0;
 
 let arcWrapper = new PIXI.Container();
 
-
 let app = new PIXI.Application({ width: window.innerWidth, height: window.innerHeight });
 document.body.appendChild(app.view);
 
@@ -18,8 +17,8 @@ function createCircle(circleSize, color, border) {
 
   let circleWrapper = new PIXI.Container();
   
-  circle.lineStyle(2, color, 1);
-  circle.beginFill(border, 1);
+  circle.lineStyle(1, border, 1);
+  circle.beginFill(color, 1);
   circle.drawEllipse(WIDTH_CENTER, HEIGHT_CENTER, circleSize, circleSize);
   circle.endFill();
 
@@ -27,13 +26,16 @@ function createCircle(circleSize, color, border) {
   
   app.stage.addChild(circleWrapper);
 
-  return circleWrapper;
+  return {
+    parent: circleWrapper,
+    child: circle
+  };
 }
 
 function createArc() {
   const arc = new PIXI.Graphics();
 
-  arc.lineStyle(10, 0xFF0000, 1);
+  arc.lineStyle(15, 0xFF0000, 1);
   arc.arc(0, 0, CIRCLE_SIZE, -1/4, 1/4);
 
   arcWrapper.addChild(arc);
@@ -44,12 +46,25 @@ function createArc() {
 }
 
 function main() {
-  createCircle(CIRCLE_SIZE, 0xffffff, 0x00000 );
-  createArc();  
+  const gameCircle = createCircle(CIRCLE_SIZE, 0x00000, 0xffffff );
+  createArc(); 
+
+  const rhythmWrapper = document.querySelector('.rythm-bass');
+  
+  app.ticker.add(() => {
+    if (rhythmWrapper.style.transform) {
+      const pulse = rhythmWrapper.style.transform.split('(')[1].split(')')[0];
+      gameCircle.child.clear();
+      gameCircle.child.lineStyle((pulse * 10) - 3, 0xffffff, 1);
+      gameCircle.child.beginFill(0x00000, 1);
+      gameCircle.child.drawEllipse(WIDTH_CENTER, HEIGHT_CENTER, CIRCLE_SIZE, CIRCLE_SIZE);
+      gameCircle.child.endFill();
+    }
+  });
 }
 
 function createBall (frequency) {
-  let note = createCircle(NOTE_SIZE, 0xFFFFFF, 0xFFFFFF);
+  let note = createCircle(NOTE_SIZE, 0xFFFFFF, 0xFFFFFF).parent;
 
   const temp = 300;
   const rad = (360 * Math.PI * frequency) / (800 * 180);
@@ -64,20 +79,22 @@ function createBall (frequency) {
         maxScore += 1;
 
         if (rad < arcWrapper.rotation + ((1/10) * Math.PI) && rad < arcWrapper.rotation - ((1/10) * Math.PI)) {
-          console.log(false);
+          //console.log(false);
         } else {
-          console.log(true);
+          //console.log(true);
           score += 1;
         }
         const pourcentage = (score / maxScore) * 100;
         document.querySelector('#score').innerHTML = Math.ceil(pourcentage) + '%';
-        note.parent.removeChild(note);
+        note.destroy();
         clearInterval(travel);
+      } else {
+        const x = (maxX / 100) * i;
+        const y = (maxY / 100) * i;
+        note.position.set(x, y);
+        i++;
       }
-      const x = (maxX / 100) * i;
-      const y = (maxY / 100) * i;
-      note.position.set(x, y);
-      i++;
+
     }, 15);
 }
 
