@@ -48,33 +48,8 @@ const toBase64 = (file) => {
     let sketch = new SketchClass();
     rythm.setMusic(reader.result);
     rythm.start();
-    // setTimeout(() => {
-    //   cloneAudio()
-    // }, 1500) // Interval entre les deux lancements
    };
    reader.onerror = function (error) {
      console.log('Error: ', error);
    };
 };
-
-// const cloneAudio = () => {
-//   const audioClone = audio.cloneNode(true);
-//   audioClone.muted = false;
-//   audioClone.volume = 1;
-//   rythm.setMusic(this.audio.src);
-//   rythm.start();
-//   audioClone.play();
-//   audioClone.addEventListener('ended', () => {
-//     setTimeout(() => {
-//       const score = getScore()
-//       document.getElementById('notes-succeed').innerHTML = score.succeed;
-//       document.getElementById('notes-failed').innerHTML = score.failed;
-//       document.getElementById('notes-total').innerHTML = score.total;
-//       document.getElementById('percent').innerHTML = score.percent + '%';
-//       document.getElementById('score-container').style.display = 'block';
-//       document.getElementById("myModal").style.display = 'block';
-//       audioClone.remove()
-//     }, 1500)
-    
-//   })
-// }

@@ -17,7 +17,7 @@ class SketchClass {
     this.audio.play();
     this.audio.addEventListener('ended', () => {
       setTimeout(() => {
-        console.log('ended')
+        console.log('ended');
         const score = getScore();
         let rank = 'F';
         if (score.percent >= 95) {
