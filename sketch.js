@@ -36,8 +36,9 @@ class SketchClass {
 
   getPitch () {
     this.pitch.getPitch(function(err, frequency) {
-      console.log(frequency);
-      return frequency;
+      if (frequency) {
+        createBall(frequency)
+      }
     })
   }
 }

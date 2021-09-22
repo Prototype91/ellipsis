@@ -42,12 +42,14 @@ function createArc() {
 
 function main() {
   createCircle(CIRCLE_SIZE, 0x76AB59);
-  createArc();
+  createArc();  
+}
 
+function createBall (frequency) {
   let note = createCircle(25, 0xFFFFFF);
 
   const temp = 300;
-  const rad = (360 * Math.PI * temp) / (800 * 180);
+  const rad = (360 * Math.PI * frequency) / (800 * 180);
 
   const maxX = Math.cos(rad) * CIRCLE_SIZE;
   const maxY = Math.sin(rad) * CIRCLE_SIZE;
