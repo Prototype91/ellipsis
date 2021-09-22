@@ -9,6 +9,11 @@
   <script defer src="./sketch.js"></script>
   <script defer src="./js/upload.js"></script>
   <script defer src="./canvasHandler.js"></script>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+
   <style>
     body {
       margin: 0;
@@ -23,29 +28,86 @@
       font-size: 20px;
     }
 
-    form {
-      position: fixed;
-      left: 0;
-      top: 0;
-    }
-
     audio {
       display: none;
+    }
+
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto; /* 15% from the top and centered */
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%; /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button */
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
     }
 
   </style>
 </head>
 
 <body>
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div id="score-container" style="display: none;">
+        <p>Pourcentage de réussite : <span id="percent"></span></p>
+        <table>
+          <tr>
+            <th>Notes réussies</th>
+            <th>Notes ratées</th>
+            <th>Notes totales</th>
+          </tr>
+          <tr>
+            <td id="notes-succeed"></td>
+            <td id="notes-failed"></td>
+            <td id="notes-total"></td>
+          </tr>
+        </table>
+        <p>Choisissez une autre musique</p>
+      </div>
+      <form id="form">
+        <label for="file">Fichier</label>
+        <input type="file" name="file" id="file">
+    
+        <input type="submit" value="Charger">
+      </form>
+    
+      <audio id="audio" controls></audio>
+    </div>
+  
+  </div>
+  
   <span id="score">0%</span>
-  <form id="form">
-    <label for="file">Fichier</label>
-    <input type="file" name="file" id="file">
-
-    <input type="submit" value="Charger">
-  </form>
-
-  <audio id="audio" controls></audio>
+  
 </body>
 
 </html>

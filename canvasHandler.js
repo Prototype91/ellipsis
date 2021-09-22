@@ -4,6 +4,7 @@ const HEIGHT_CENTER = window.innerHeight / 2;
 const NOTE_SIZE = 15;
 let score = 0;
 let maxScore = 0;
+let failNotes = 0;
 
 let arcWrapper = new PIXI.Container();
 
@@ -45,7 +46,8 @@ function createArc() {
 
 function main() {
   createCircle(CIRCLE_SIZE, 0xffffff, 0x00000 );
-  createArc();  
+  createArc();
+  createBall(600);
 }
 
 function createBall (frequency) {
@@ -59,12 +61,13 @@ function createBall (frequency) {
 
   let i = 0;
 
-    let travel =  setInterval(() => {
-      if (i >= 100) {
+  let travel =  setInterval(() => {
+    if (i >= 100) {
         maxScore += 1;
-
+        console.log(rad, arcWrapper.rotation)
         if (rad < arcWrapper.rotation + ((1/10) * Math.PI) && rad < arcWrapper.rotation - ((1/10) * Math.PI)) {
           console.log(false);
+          failNotes++;
         } else {
           console.log(true);
           score += 1;
@@ -81,9 +84,24 @@ function createBall (frequency) {
     }, 15);
 }
 
+function getScore() {
+  dataScore =  {
+    succeed: score,
+    failed: failNotes,
+    total: maxScore,
+    percent: Math.ceil((score / maxScore) * 100),
+  };
+  score = failNotes = maxScore = 0;
+  document.querySelector('#score').innerHTML = '0%';
+
+  return dataScore;
+}
+
 document.addEventListener('mousemove', (e) => {
-  const dir = -(Math.atan2(event.clientX - WIDTH_CENTER, event.clientY - HEIGHT_CENTER));
+  const dir = -(Math.atan2(e.clientX - WIDTH_CENTER, e.clientY - HEIGHT_CENTER));
+  // console.log(dir)
   arcWrapper.rotation = dir + (Math.PI / 2);
+  // console.log(arcWrapper.rotation - ((1/10) * Math.PI), arcWrapper.rotation, arcWrapper.rotation + ((1/10) * Math.PI))
 });
 
 window.onload = main;
