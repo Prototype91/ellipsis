@@ -27,5 +27,5 @@ const cloneAudio = () => {
   const audioClone = audio.cloneNode(true);
   audioClone.muted = false;
   audioClone.volume = 1;
-  // audioClone.play();
+  audioClone.play();
 }
