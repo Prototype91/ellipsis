@@ -33,6 +33,8 @@ const toBase64 = (file) => {
    reader.onload = function () {
     document.getElementById('audio').src = reader.result;
     let sketch = new SketchClass();
+    rythm.setMusic(reader.result);
+    rythm.start();
     // setTimeout(() => {
     //   cloneAudio()
     // }, 1500) // Interval entre les deux lancements
