@@ -19,6 +19,18 @@ class GameClass {
     this.app = null;
     this.app = new PIXI.Application({ width: window.innerWidth, height: window.innerHeight, resizeTo: window, antialias: true, backgroundAlpha: 0 });
     this.gameContainer.appendChild(this.app.view);
+
+    this.burst = new mojs.Burst({
+      radius:   { 0: 50 },
+      count:    5,
+      children: {
+        shape:        'circle',
+        radius:       15,
+        fill:         [ 'deeppink', 'cyan', 'yellow' ],
+        strokeWidth:  5,
+        duration:     2000
+      }
+    });
   }
 
   createCircle () {
@@ -121,6 +133,10 @@ class GameClass {
         }
         if ((rad >= min && rad <= max && !specialVerif) || ((rad >= min || rad <= max) && specialVerif)) {
           this.score += 1;
+          this.burst
+            .tune({ x: (maxX / 100) * i, y: (maxY / 100) * i })
+            .setSpeed(3)
+            .replay();
         } else {
           this.failNotes++;
         }
