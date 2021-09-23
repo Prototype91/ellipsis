@@ -1,6 +1,6 @@
 @font-face {
   font-family: gemunu;
-  src: url(./font/GemunuLibre-Light.ttf);
+  src: url(../font/GemunuLibre-Light.ttf);
 }
 
 body {
@@ -10,16 +10,26 @@ body {
   font-family: "gemunu", sans-serif;
 }
 
-.rythm {
-  display: none;
+.game-circle {
+  width: 500px;
+  height: 500px;
+  position: fixed;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  transform: translate(-50%, -50%);
+  outline: 3px solid white;
+  border: 3px solid white;
+  outline-offset: -1px;
 }
 
 #replay:hover {
-    color: white;
+  color: white;
 }
 
 .game-over {
-    text-align: center;
+  text-align: center;
 }
 
 #score {
