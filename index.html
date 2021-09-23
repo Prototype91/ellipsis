@@ -27,14 +27,19 @@
 
     #score {
       position: fixed;
-      top: 5%;
-      right: 5%;
-      color: #fff;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #000;
+      z-index: 2;
+      background-color: #fff;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
       font-size: 20px;
-    }
-
-    audio {
-      display: none;
+      vertical-align: middle;
+      text-align: center;
+      line-height: 50px;
     }
 
     .modal {
@@ -43,7 +48,7 @@
       /* Hidden by default */
       position: fixed;
       /* Stay in place */
-      z-index: 1;
+      z-index: 10;
       /* Sit on top */
       left: 0;
       top: 0;
@@ -108,7 +113,7 @@
     .dot {
       height: 50px;
       width: 50px;
-      border: 1.5px solid white;
+      border: 1.3px solid white;
       background-color: transparent;
       border-radius: 50%;
       display: inline-block;
@@ -185,7 +190,6 @@
           <p id="error"></p>
         </form>
 
-        <audio id="audio" controls></audio>
       </div>
 
     </div>

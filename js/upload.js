@@ -9,21 +9,32 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#form').style.display = 'block';
   }
 
-    let zoom = 1;
-    let circleWidth = 50;
-    intervall = setInterval(function() {
-      zoom += 0.02;
-      let dot = document.querySelector(".dot")
-      dot.style.transform = "scale(" + zoom + ")";
+  let intro = document.getElementById('intro')
+  let game = document.getElementById('game')
+  intro.addEventListener('click', () => {
+    intro.style.display = "none";
+    game.style.display = "block";
+  })
 
-      console.log(dot.clientWidth);
-      if (circleWidth * zoom >= 500) {
-        let title = document.getElementById('title');
-        title.style.display = "block";
-        clearInterval(intervall);
-        
-      }
-    }, 10);
+  let zoom = 1;
+  let circleWidth = 50;
+  intervall = setInterval(function() {
+    zoom += 0.02;
+    let dot = document.querySelector(".dot")
+    dot.style.transform = "scale(" + zoom + ")";
+
+    if (circleWidth * zoom >= 500) {
+      let title = document.getElementById('title');
+      title.style.display = "block";
+      clearInterval(intervall);
+      setTimeout(() => {
+        if (intro.style.display != 'none') {
+          intro.click();
+        }
+      }, 5000)
+      
+    }
+  }, 10);
 
 
   const input = document.getElementById('file');
@@ -60,8 +71,7 @@ const toBase64 = (file) => {
   const reader = new FileReader();
    reader.readAsDataURL(file);
    reader.onload = function () {
-    document.getElementById('audio').src = reader.result;
-    let sketch = new SketchClass();
+    let sketch = new SketchClass(reader.result);
     rythm.setMusic(reader.result);
     rythm.start();
    };
