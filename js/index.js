@@ -86,10 +86,8 @@ const toBase64 = (file) => {
 const startGame = (url) => {
   player = null;
   game = null;
-  console.log(player, game)
   player = new PlayerClass(url);
   game = new GameClass(player);  
-  console.log(player, game)
   game.start();
   if(!init) {
     document.addEventListener('mousemove', (e) => {

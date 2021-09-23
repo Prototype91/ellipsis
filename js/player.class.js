@@ -6,7 +6,6 @@ class PlayerClass {
   interval = null;
 
   constructor(url) {
-    console.log('constucor', this.interval)
     this.audioContext = new AudioContext();
     this.audio = new Audio(url);
     this.rythm.setMusic(url);
@@ -14,8 +13,7 @@ class PlayerClass {
 
   reset () {
     clearInterval(this.interval);
-    console.log(this.interval)
-    this.game.destroyApp();
+    // this.game.destroyApp();
     let self = this;
     setTimeout(() => {
       self.audio.pause();
@@ -23,7 +21,6 @@ class PlayerClass {
       self.pitch = null;
       self.game = null;
       self.interval = null;
-      console.log(self.interval)
     }, 300)
     
   }
@@ -67,6 +64,8 @@ class PlayerClass {
         document.getElementById('percent').innerHTML = score.percent + '%';
         document.getElementById('score-container').style.display = 'block';
         document.getElementById("myModal").style.display = 'block';
+        document.getElementById("form").style.display = 'none';
+        document.getElementById("replay").style.display = 'block';
       }, 1000)
 
     })

@@ -130,6 +130,8 @@ class GameClass {
           this.player.reset();
           document.querySelector('#myModal').style.display = 'block';
           document.querySelector('#game-over').style.display = 'block';
+          document.getElementById("form").style.display = 'none';
+          document.getElementById("replay").style.display = 'block';
         }
         note.destroy({children: true, texture: true, baseTexture: true});
         note = undefined;
