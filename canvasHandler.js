@@ -37,7 +37,7 @@ function createCircle(circleSize, color, border) {
 function createArc() {
   const arc = new PIXI.Graphics();
 
-  arc.lineStyle(15, 0xb042ff, 1);
+  arc.lineStyle(15, 0x9b4dca, 1);
   arc.arc(0, 0, CIRCLE_SIZE, -1/4, 1/4);
 
   arcWrapper.addChild(arc);
