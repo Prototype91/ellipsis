@@ -53,16 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
       modal.style.display = "none";
       setErrorText('');
     } else if (select.value) {
-      fetch(select.value)
-      .then(response => {
-        return response.blob();
-      })
-      .then(blob => {
-        toBase64(blob);        
-        modal.style.display = "none";
-        setErrorText('');
-      })
-      .catch(err => console.log(err))
+      const b64Key = Object.keys(musicsB64).find(key => key == select.value);
+      startGame(musicsB64[b64Key]);
+      modal.style.display = "none";
+      setErrorText('');
     } else {
       setErrorText('Veuillez saisir un fichier audio ...');
     }

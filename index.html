@@ -7,6 +7,7 @@
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/rythm.js/2.2.5/rythm.min.js"></script>
   <script defer src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
   <script defer src="https://pixijs.download/release/pixi.js"></script>
+  <script defer src="js/musics.js"></script>
   <script defer src="js/game.class.js"></script>
   <script defer src="js/player.class.js"></script>
   <script defer src="js/index.js"></script>
@@ -135,6 +136,7 @@
         visibility: hidden;
       }
     }
+
     @-webkit-keyframes blink-animation {
       to {
         visibility: hidden;
@@ -161,6 +163,7 @@
     select {
       color: white;
     }
+
     option {
       color: black;
     }
@@ -234,13 +237,11 @@
           <label for="musics">Notre sélection</label>
           <select name="musics" id="musics">
             <option value="">-- Choisir une musique --</option>
-            <option value="./musics/scc-ttp.mp3">Salut c'est cool - Techno toujours pareil</option>
-            <option value="./musics/pf-bu">Party Favor - Bap U</option>
-            <option value="./musics/vc-a.mp3">Vladimir Cauchemar - Aulos</option>
-            <option value="./musics/kpm-bb.mp3">KAKU P-MODEL - Big Brother</option>
-            <option value="./musics/beethoven.mp3">Beethoven - Fur Elise</option>
-            <option value="./musics/kraftwerk_the_robots.mp3">Kraftwerk - The Robots</option>
-            <option value="./musics/tft-m.mp3">TheFatRat - MAYDAY feat. Laura Brehm</option>
+            <option value="scc_ttp">Salut c'est cool - Techno toujours pareil</option>
+            <option value="pf_bu">Party Favor - Bap U</option>
+            <option value="vc_a">Vladimir Cauchemar - Aulos</option>
+            <option value="kpm_bb">KAKU P-MODEL - Big Brother</option>
+            <option value="tft_m">TheFatRat - MAYDAY feat. Laura Brehm</option>
           </select>
 
           <input type="file" value="./musics/scc-ttp.mp3" style="display: none;" data-id="1">
