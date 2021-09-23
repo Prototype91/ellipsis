@@ -13,8 +13,16 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <style>
+    @font-face {
+      font-family: gemunu;
+      src: url(./font/GemunuLibre-Light.ttf);
+    }
+
+
     body {
       margin: 0;
       cursor: crosshair;
@@ -90,7 +98,7 @@
     .dot {
       height: 150px;
       width: 150px;
-      border: 1.3px solid white;
+      border: 2.3px solid white;
       background-color: transparent;
       border-radius: 50%;
       display: inline-block;
@@ -103,10 +111,11 @@
 
     #title {
       display: none;
-      font-size: 20px;
+      font-size: 32px;
       color: white;
       animation: blink-animation 1s steps(2, start) infinite;
       -webkit-animation: blink-animation 1s steps(2, start) infinite;
+      font-family: 'gemunu', sans-serif;
     }
 
     @keyframes blink-animation {
