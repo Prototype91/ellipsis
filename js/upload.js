@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   const input = document.getElementById('file');
+  const select = document.getElementById('musics');
 
   let form = document.getElementById('form');
   let error = document.getElementById('error');
@@ -48,6 +49,17 @@ document.addEventListener('DOMContentLoaded', () => {
       toBase64(input.files[0]);
       modal.style.display = "none";
       error.innerHTML = '';
+    } else if (select.value) {
+      fetch(select.value)
+      .then(response => {
+        return response.blob();
+      })
+      .then(blob => {
+        toBase64(blob);        
+        modal.style.display = "none";
+        error.innerHTML = '';
+      })
+      .catch(err => console.log(err))
     } else {
       error.innerHTML = 'Veuillez saisir un fichier audio ...';
     }

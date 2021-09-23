@@ -156,6 +156,13 @@
       font-size: 20px;
     }
 
+    select {
+      color: white;
+    }
+    option {
+      color: black;
+    }
+
   </style>
 </head>
 
@@ -197,6 +204,22 @@
           <h2>Choisissez une musique</h2>
           <label for="file">Fichier</label>
           <input type="file" name="file" id="file">
+
+          <label for="musics">Nos musiques</label>
+          <select name="musics" id="musics">
+            <option value="">-- Choisir une musique --</option>
+            <option value="./musics/scc-ttp.mp3">Salut c'est cool - Techno toujours pareil</option>
+            <option value="./musics/pf-bu">Party Favor - Bap U</option>
+            <option value="./musics/vc-a.mp3">Vladimir Cauchemar - Aulos</option>
+            <option value="./musics/kpm-bb.mp3">KAKU P-MODEL - Big Brother</option>
+            <option value="./musics/beethoven.mp3">Beethoven - Fur Elise</option>
+            <option value="./musics/kraftwerk_the_robots.mp3">Kraftwerk - The Robots</option>
+            <option value="./musics/tft-m.mp3">TheFatRat - MAYDAY feat. Laura Brehm</option>
+          </select>
+
+          <input type="file" value="./musics/scc-ttp.mp3" style="display: none;" data-id="1">
+          
+          <audio src="" id="temp"></audio>
 
           <input type="submit" value="Charger">
           <p id="error"></p>
