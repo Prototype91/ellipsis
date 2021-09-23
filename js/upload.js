@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let zoom = 1;
   let circleWidth = 150;
-  intervall = setInterval(function() {
+  
+  intervall = setInterval(function () {
     zoom += 0.01;
     let dot = document.querySelector(".dot")
     dot.style.transform = "scale(" + zoom + ")";
@@ -32,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
           intro.click();
         }
       }, 5000)
-      
     }
   }, 10);
 
@@ -51,15 +51,15 @@ document.addEventListener('DOMContentLoaded', () => {
       error.innerHTML = '';
     } else if (select.value) {
       fetch(select.value)
-      .then(response => {
-        return response.blob();
-      })
-      .then(blob => {
-        toBase64(blob);        
-        modal.style.display = "none";
-        error.innerHTML = '';
-      })
-      .catch(err => console.log(err))
+        .then(response => {
+          return response.blob();
+        })
+        .then(blob => {
+          toBase64(blob);
+          modal.style.display = "none";
+          error.innerHTML = '';
+        })
+        .catch(err => console.log(err))
     } else {
       error.innerHTML = 'Veuillez saisir un fichier audio ...';
     }
@@ -67,12 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const modal = document.getElementById("myModal");
   modal.style.display = "block";
-
-  // window.onclick = function (event) {
-  //   if (event.target == modal) {
-  //     modal.style.display = "none";
-  //   }
-  // }
 })
 
 const toBase64 = (file) => {

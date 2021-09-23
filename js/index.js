@@ -1,7 +1,6 @@
 let sketch = null;
 let game = null;
 let init = false;
-
 let pulseRatio = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let intro = document.getElementById('intro');
   let game = document.getElementById('game');
 
-
   intro.addEventListener('click', () => {
     intro.style.display = "none";
     game.style.display = "block";
@@ -23,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let zoom = 1;
   let circleWidth = 150;
 
-  interval = setInterval(function() {
+  interval = setInterval(function () {
     zoom += 0.01;
     let dot = document.querySelector(".dot")
     dot.style.transform = "scale(" + zoom + ")";
@@ -36,15 +34,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (intro.style.display != 'none') {
           intro.click();
         }
-      }, 5000);      
+      }, 5000);
     }
   }, 10);
 
 
   const input = document.getElementById('file');
   const select = document.getElementById('musics');
-
   let form = document.getElementById('form');
+
   form.addEventListener('submit', (e) => {
     e.preventDefault()
 
@@ -81,15 +79,16 @@ const startGame = (url) => {
   player = null;
   game = null;
   player = new PlayerClass(url);
-  game = new GameClass(player);  
+  game = new GameClass(player);
   game.start();
-  if(!init) {
+  
+  if (!init) {
     document.addEventListener('mousemove', (e) => {
       game.setRotationArcWrapper(e.clientX, e.clientY);
     });
     init = false;
   }
-  
+
   player.start(game);
 }
 

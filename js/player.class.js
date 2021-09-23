@@ -16,7 +16,6 @@ const resetNeonCustom = elem => {
 
 
 class PlayerClass {
-
   pitch = null;
   rythm = new Rythm();
   game = null;
@@ -32,9 +31,8 @@ class PlayerClass {
     });
   }
 
-  reset () {
+  reset() {
     clearInterval(this.interval);
-    // this.game.destroyApp();
     let self = this;
     setTimeout(() => {
       self.audio.pause();
@@ -43,7 +41,6 @@ class PlayerClass {
       self.game = null;
       self.interval = null;
     }, 300)
-    
   }
 
   start(game) {
@@ -64,8 +61,9 @@ class PlayerClass {
       setTimeout(() => {
         const score = game.getScore();
         this.reset();
-        
+
         let rank = 'F';
+
         if (score.percent >= 95) {
           rank = 'S';
         } else if (score.percent >= 90) {
