@@ -1,7 +1,8 @@
 <html>
-​
+
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" href="images/favicon.ico" />
   <title>Ellipsis</title>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/rythm.js/2.2.5/rythm.min.js"></script>
   <script defer src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
@@ -9,18 +10,19 @@
   <script defer src="js/upload.js"></script>
   <script defer src="./sketch.js"></script>
   <script defer src="./canvasHandler.js"></script>
-​
+
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-​
+
   <style>
     @font-face {
       font-family: gemunu;
       src: url(./font/GemunuLibre-Light.ttf);
     }
+
 
     body {
       margin: 0;
@@ -28,11 +30,11 @@
       background-color: #000;
       font-family: 'gemunu', sans-serif;
     }
-​
+
     .rythm {
       display: none;
     }
-​
+
     #score {
       position: fixed;
       top: 50%;
@@ -49,7 +51,7 @@
       text-align: center;
       line-height: 50px;
     }
-​
+
     .modal {
       cursor: initial;
       display: none;
@@ -63,7 +65,7 @@
       background-color: rgb(0, 0, 0);
       background-color: rgba(0, 0, 0, 0.4);
     }
-​
+
     /* Modal Content/Box */
     .modal-content {
       background-color: black;
@@ -75,16 +77,16 @@
       width: 80%;
       max-width: 1000px;
     }
-​
+
     th, td {
       color: white !important;
       font-weight: normal;
     }
-​
+
     th {
       font-weight: normal;
     }
-​
+
     .neon-custom {
       z-index: -1;
       position: fixed;
@@ -96,14 +98,14 @@
       transform: translate(-50%, -50%);
       font-size: 160px;
     }
-​
+
     section#intro {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100%;
     }
-​
+
     .dot {
       height: 150px;
       width: 150px;
@@ -117,7 +119,7 @@
       justify-content: center;
       align-items: center;
     }
-​
+
     #title {
       display: none;
       font-size: 32px;
@@ -126,7 +128,7 @@
       -webkit-animation: blink-animation 1s steps(2, start) infinite;
       font-family: 'gemunu', sans-serif;
     }
-​
+
     @keyframes blink-animation {
       to {
         visibility: hidden;
@@ -137,11 +139,11 @@
         visibility: hidden;
       }
     }
-​
+
     #score-container {
       text-align: center;
     }
-​
+
     #rank {
       border: 3px solid white;
       border-radius: 50%;
@@ -150,21 +152,21 @@
       margin-right: auto;
       font-size: 50px;
     }
-​
+
     p {
       font-size: 20px;
     }
-​
+
     select {
       color: white;
     }
     option {
       color: black;
     }
-​
+
   </style>
 </head>
-​
+
 <body>
   <section id="intro">
     <span class="dot">
@@ -203,7 +205,7 @@
           <h2>Choisissez une musique</h2>
           <label for="file">Fichier</label>
           <input type="file" name="file" id="file">
-​
+
           <label for="musics">Nos musiques</label>
           <select name="musics" id="musics">
             <option value="">-- Choisir une musique --</option>
@@ -215,20 +217,20 @@
             <option value="./musics/"></option>
             <option value="./musics/"></option>
             <option value="./musics/"></option>
-​
+
           </select>
-​
+
           <input type="submit" value="Charger">
           <p id="error"></p>
         </form>
-​
+
       </div>
-​
+
     </div>
-​
+
     <span id="score">0%</span>
   </section>
-​
+
 </body>
-​
+
 </html>
