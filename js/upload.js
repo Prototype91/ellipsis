@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (input.files && input.files[0]) {
       toBase64(input.files[0]);
       modal.style.display = "none";
+      error.innerHTML = '';
     } else {
       error.innerHTML = 'Veuillez saisir un fichier audio ...';
     }
