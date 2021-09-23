@@ -18,7 +18,7 @@ function createCircle(circleSize, color, border) {
   const circle = new PIXI.Graphics();
 
   let circleWrapper = new PIXI.Container();
-  
+
   circle.lineStyle(8, border, 1);
   circle.beginFill(color, 1);
   circle.drawEllipse(WIDTH_CENTER, HEIGHT_CENTER, circleSize, circleSize);
@@ -38,7 +38,7 @@ function createArc() {
   const arc = new PIXI.Graphics();
 
   arc.lineStyle(15, 0xFF0000, 1);
-  arc.arc(0, 0, CIRCLE_SIZE, -1/4, 1/4);
+  arc.arc(0, 0, CIRCLE_SIZE, -1 / 4, 1 / 4);
 
   arcWrapper.addChild(arc);
 
@@ -48,12 +48,12 @@ function createArc() {
 }
 
 function main() {
-  const gameCircle = createCircle(CIRCLE_SIZE, 0x00000, 0xffffff );
-  createArc(); 
+  const gameCircle = createCircle(CIRCLE_SIZE, 0x00000, 0xffffff);
+  createArc();
 
   const rhythmWrapper = document.querySelector('.rythm-bass');
   const neon = document.querySelector('.neon-custom');
-  
+
   app.ticker.add(() => {
     if (rhythmWrapper.style.transform) {
       let pulse = rhythmWrapper.style.transform.split('(')[1].split(')')[0];
@@ -70,7 +70,7 @@ function main() {
   });
 }
 
-function createBall (frequency) {
+function createBall(frequency) {
   let note = createCircle(NOTE_SIZE, 0xFFFFFF, 0xFFFFFF).parent;
 
   const rad = (360 * Math.PI * frequency) / (800 * 180);
@@ -80,15 +80,15 @@ function createBall (frequency) {
 
   let i = 0;
 
-  let travel =  setInterval(() => {
+  let travel = setInterval(() => {
     if (i >= 100) {
       maxScore += 1;
       let rotationWrapper = arcWrapper.rotation
       if (rotationWrapper < 0) {
         rotationWrapper += PRECISION;
       }
-      let min = rotationWrapper - ((1/10) * Math.PI);
-      let max = rotationWrapper + ((1/10) * Math.PI);
+      let min = rotationWrapper - ((1 / 10) * Math.PI);
+      let max = rotationWrapper + ((1 / 10) * Math.PI);
       let specialVerif = max > PRECISION;
 
       if (specialVerif) {
@@ -103,6 +103,7 @@ function createBall (frequency) {
       const pourcentage = (score / maxScore) * 100;
       document.querySelector('#score').innerHTML = Math.ceil(pourcentage) + '%';
       if (pourcentage < 50 && maxScore > 20) {
+        sketch.stopMusic();
         document.querySelector('#myModal').style.display = 'block';
         document.querySelector('#game-over').style.display = 'block';
       }
@@ -118,7 +119,7 @@ function createBall (frequency) {
 }
 
 function getScore() {
-  dataScore =  {
+  dataScore = {
     succeed: score,
     failed: failNotes,
     total: maxScore,

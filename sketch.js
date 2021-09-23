@@ -18,24 +18,24 @@ class SketchClass {
       const stream = stream_dest.stream;
       this.startPitch(stream)
     }
-    // this.audio.volume = 0.001;
     this.audio.play();
+
     this.audio.addEventListener('ended', () => {
       setTimeout(() => {
         const score = getScore();
         let rank = 'F';
         if (score.percent >= 95) {
           rank = 'S';
-        } else if(score.percent >= 90) {
+        } else if (score.percent >= 90) {
           rank = 'A';
         } else if (score.percent >= 80) {
           rank = 'B';
-        } else if(score.percent >= 70) {
+        } else if (score.percent >= 70) {
           rank = 'C'
         } else if (score.percent >= 60) {
           rank = 'D';
         }
-        
+
         document.getElementById('rank').innerHTML = rank;
         document.getElementById('notes-succeed').innerHTML = score.succeed;
         document.getElementById('notes-failed').innerHTML = score.failed;
@@ -43,9 +43,8 @@ class SketchClass {
         document.getElementById('percent').innerHTML = score.percent + '%';
         document.getElementById('score-container').style.display = 'block';
         document.getElementById("myModal").style.display = 'block';
-        // audioClone.remove()
       }, 1500)
-      
+
     })
   }
 
@@ -64,6 +63,10 @@ class SketchClass {
     }, 300)
   }
 
+  stopMusic() {
+    this.audio.pause();
+  }
+
   async getPitch() {
     let isFrequency = false
     while (!isFrequency) {
@@ -73,6 +76,5 @@ class SketchClass {
         isFrequency = true
       }
     }
-
   }
 }
