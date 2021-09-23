@@ -12,7 +12,7 @@ let arcWrapper = new PIXI.Container();
 let triangleWidth = 50;
 
 let app = new PIXI.Application({ width: window.innerWidth, height: window.innerHeight, resizeTo: window, antialias: true, backgroundAlpha: 0 });
-document.body.appendChild(app.view);
+document.getElementById('game').appendChild(app.view);
 
 function createCircle(circleSize, color, border) {
   const circle = new PIXI.Graphics();
@@ -37,7 +37,7 @@ function createCircle(circleSize, color, border) {
 function createArc() {
   const arc = new PIXI.Graphics();
 
-  arc.lineStyle(15, 0xFF0000, 1);
+  arc.lineStyle(15, 0xb042ff, 1);
   arc.arc(0, 0, CIRCLE_SIZE, -1/4, 1/4);
 
   arcWrapper.addChild(arc);

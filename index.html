@@ -98,53 +98,100 @@
       font-size: 160px;
     }
 
+    section#intro {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    .dot {
+      height: 50px;
+      width: 50px;
+      border: 1.5px solid white;
+      background-color: transparent;
+      border-radius: 50%;
+      display: inline-block;
+      transform: scale(1);
+      transition: scale ease .5s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #title {
+      display: none;
+      font-size: 12px;
+      color: white;
+      animation: blink-animation 1s steps(2, start) infinite;
+      -webkit-animation: blink-animation 1s steps(2, start) infinite;
+    }
+
+    @keyframes blink-animation {
+      to {
+        visibility: hidden;
+      }
+    }
+    @-webkit-keyframes blink-animation {
+      to {
+        visibility: hidden;
+      }
+    }
+
   </style>
 </head>
 
 <body>
-  <div class="rythm-bass"></div>
-  <div class="neon-custom"></div>
-  <div id="myModal" class="modal">
-    <!-- Modal content -->
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <div id="no-chrome" style="display: none;">
-        <h2>Ce jeu fonctionne uniquement sur un navigateur Chromium</h2>
-      </div>
-      <div id="game-over" style="display: none;">
-        <h2>GAME OVER, vous n'avez pas su attraper plus de 50% des notes ...</h2>
-      </div>
-      <div id="score-container" style="display: none;">
-        <span id="rank">F</span>
-        <p>Pourcentage de réussite : <span id="percent"></span></p>
-        <table>
-          <tr>
-            <th>Notes réussies</th>
-            <th>Notes ratées</th>
-            <th>Notes totales</th>
-          </tr>
-          <tr>
-            <td id="notes-succeed"></td>
-            <td id="notes-failed"></td>
-            <td id="notes-total"></td>
-          </tr>
-        </table>
-      </div>
-      <form id="form" style="display: none;">
-        <h2>Choisissez une musique</h2>
-        <label for="file">Fichier</label>
-        <input type="file" name="file" id="file">
+  <section id="intro">
+    <span class="dot">
+      <span id="title">Ellipsis</span>
+    </span>
+  </section>
+  <section id="game" style="display: none;">
+    <div class="rythm-bass"></div>
+    <div class="neon-custom"></div>
+    <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="no-chrome" style="display: none;">
+          <h2>Ce jeu fonctionne uniquement sur un navigateur Chromium</h2>
+        </div>
+        <div id="game-over" style="display: none;">
+          <h2>GAME OVER, vous n'avez pas su attraper plus de 50% des notes ...</h2>
+        </div>
+        <div id="score-container" style="display: none;">
+          <span id="rank">F</span>
+          <p>Pourcentage de réussite : <span id="percent"></span></p>
+          <table>
+            <tr>
+              <th>Notes réussies</th>
+              <th>Notes ratées</th>
+              <th>Notes totales</th>
+            </tr>
+            <tr>
+              <td id="notes-succeed"></td>
+              <td id="notes-failed"></td>
+              <td id="notes-total"></td>
+            </tr>
+          </table>
+        </div>
+        <form id="form" style="display: none;">
+          <h2>Choisissez une musique</h2>
+          <label for="file">Fichier</label>
+          <input type="file" name="file" id="file">
 
-        <input type="submit" value="Charger">
-        <p id="error"></p>
-      </form>
+          <input type="submit" value="Charger">
+          <p id="error"></p>
+        </form>
 
-      <audio id="audio" controls></audio>
+        <audio id="audio" controls></audio>
+      </div>
+
     </div>
 
-  </div>
-
-  <span id="score">0%</span>
+    <span id="score">0%</span>
+  </section>
 
 </body>
 

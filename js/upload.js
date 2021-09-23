@@ -9,6 +9,22 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#form').style.display = 'block';
   }
 
+    let zoom = 1;
+    let circleWidth = 50;
+    intervall = setInterval(function() {
+      zoom += 0.02;
+      let dot = document.querySelector(".dot")
+      dot.style.transform = "scale(" + zoom + ")";
+
+      console.log(dot.clientWidth);
+      if (circleWidth * zoom >= 500) {
+        let title = document.getElementById('title');
+        title.style.display = "block";
+        clearInterval(intervall);
+        
+      }
+    }, 10);
+
 
   const input = document.getElementById('file');
 
