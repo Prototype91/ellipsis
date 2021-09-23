@@ -6,9 +6,26 @@ class PlayerClass {
   interval = null;
 
   constructor(url) {
+    console.log('constucor', this.interval)
     this.audioContext = new AudioContext();
     this.audio = new Audio(url);
     this.rythm.setMusic(url);
+  }
+
+  reset () {
+    clearInterval(this.interval);
+    console.log(this.interval)
+    this.game.destroyApp();
+    let self = this;
+    setTimeout(() => {
+      self.audio.pause();
+      self.rythm.stop();
+      self.pitch = null;
+      self.game = null;
+      self.interval = null;
+      console.log(self.interval)
+    }, 300)
+    
   }
 
   start(game) {
@@ -28,6 +45,8 @@ class PlayerClass {
     this.audio.addEventListener('ended', () => {
       setTimeout(() => {
         const score = game.getScore();
+        this.reset();
+        
         let rank = 'F';
         if (score.percent >= 95) {
           rank = 'S';
@@ -63,7 +82,6 @@ class PlayerClass {
   }
 
   listenPitch() {
-    console.log('listenPitch')
     this.interval = setInterval(() => {
       this.getPitch()
     }, 300)

@@ -16,6 +16,7 @@ class GameClass {
     this.arcWrapper = new PIXI.Container();
     this.triangleWidth = 50;
 
+    this.app = null;
     this.app = new PIXI.Application({ width: window.innerWidth, height: window.innerHeight, resizeTo: window, antialias: true, backgroundAlpha: 0 });
     this.gameContainer.appendChild(this.app.view);
   }
@@ -32,6 +33,11 @@ class GameClass {
     circleWrapper.addChild(circle);
 
     this.app.stage.addChild(circleWrapper);
+
+    return {
+      parent: circleWrapper,
+      child: circle
+    };
   }
 
   createNote () {
@@ -70,23 +76,23 @@ class GameClass {
     const gameCircle = this.createCircle(this.CIRCLE_SIZE, 0x00000, 0xffffff);
     this.createArc();
 
-    // const rhythmWrapper = document.querySelector('.rythm-bass');
-    // const neon = document.querySelector('.neon-custom');
+    const rhythmWrapper = document.querySelector('.rythm-bass');
+    const neon = document.querySelector('.neon-custom');
 
-    // app.ticker.add(() => {
-    //   if (rhythmWrapper.style.transform) {
-    //     let pulse = rhythmWrapper.style.transform.split('(')[1].split(')')[0];
-    //     pulse = (pulse * 10) - 3;
+    this.app.ticker.add(() => {
+      if (rhythmWrapper.style.transform) {
+        let pulse = rhythmWrapper.style.transform.split('(')[1].split(')')[0];
+        pulse = (pulse * 10) - 3;
 
-    //     gameCircle.child.clear();
-    //     gameCircle.child.lineStyle(pulse, 0xffffff, 1);
-    //     gameCircle.child.beginFill(0x00000, 1);
-    //     gameCircle.child.drawEllipse(WIDTH_CENTER, HEIGHT_CENTER, CIRCLE_SIZE, CIRCLE_SIZE);
-    //     gameCircle.child.endFill();
+        gameCircle.child.clear();
+        gameCircle.child.lineStyle(pulse, 0xffffff, 1);
+        gameCircle.child.beginFill(0x00000, 1);
+        gameCircle.child.drawEllipse(this.WIDTH_CENTER, this.HEIGHT_CENTER, this.CIRCLE_SIZE, this.CIRCLE_SIZE);
+        gameCircle.child.endFill();
 
-    //     neon.style.boxShadow = `#fff 0 0 100px ${pulse * 3}px`;
-    //   }
-    // });
+        neon.style.boxShadow = `#fff 0 0 100px ${pulse * 3}px`;
+      }
+    });
   }
 
   createBall(frequency) {
@@ -113,7 +119,6 @@ class GameClass {
         if (specialVerif) {
           max -= this.PRECISION;
         }
-        console.log(min, rad, max);
         if ((rad >= min && rad <= max && !specialVerif) || ((rad >= min || rad <= max) && specialVerif)) {
           this.score += 1;
         } else {
@@ -122,10 +127,12 @@ class GameClass {
         const pourcentage = (this.score / this.maxScore) * 100;
         document.querySelector('#score').innerHTML = Math.ceil(pourcentage) + '%';
         if (pourcentage < 50 && this.maxScore > 30) {
+          this.player.reset();
           document.querySelector('#myModal').style.display = 'block';
           document.querySelector('#game-over').style.display = 'block';
         }
-        note.destroy();
+        note.destroy({children: true, texture: true, baseTexture: true});
+        note = undefined;
         clearInterval(travel);
       } else {
         const x = (maxX / 100) * i;
@@ -149,15 +156,13 @@ class GameClass {
     return dataScore;
   }
 
+  destroyApp () {
+    this.app.stop();
+    this.app.destroy();
+  }
+
   setRotationArcWrapper (x, y) {
     const dir = -(Math.atan2(x - this.WIDTH_CENTER, y - this.HEIGHT_CENTER)) + (1/2) *Math.PI;
     this.arcWrapper.rotation = dir;
   }
 }
-
-// document.addEventListener('mousemove', (e) => {
-//   const dir = -(Math.atan2(e.clientX - this.WIDTH_CENTER, e.clientY - this.HEIGHT_CENTER));
-//   this.arcWrapper.rotation = dir + (Math.PI / 2);
-// });
-
-// window.onload = main;

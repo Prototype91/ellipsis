@@ -1,5 +1,6 @@
 let sketch = null;
 let game = null;
+let init = false;
 
 let pulseRatio = 0;
 
@@ -83,12 +84,20 @@ const toBase64 = (file) => {
 };
 
 const startGame = (url) => {
+  player = null;
+  game = null;
+  console.log(player, game)
   player = new PlayerClass(url);
   game = new GameClass(player);  
+  console.log(player, game)
   game.start();
-  document.addEventListener('mousemove', (e) => {
-    game.setRotationArcWrapper(e.clientX, e.clientY);
-  });
+  if(!init) {
+    document.addEventListener('mousemove', (e) => {
+      game.setRotationArcWrapper(e.clientX, e.clientY);
+    });
+    init = false;
+  }
+  
   player.start(game);
 }
 
