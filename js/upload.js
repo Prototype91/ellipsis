@@ -17,9 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   let zoom = 1;
-  let circleWidth = 50;
+  let circleWidth = 150;
   intervall = setInterval(function() {
-    zoom += 0.02;
+    zoom += 0.01;
     let dot = document.querySelector(".dot")
     dot.style.transform = "scale(" + zoom + ")";
 
@@ -55,11 +55,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById("myModal");
   modal.style.display = "block";
 
-  window.onclick = function (event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  }
+  // window.onclick = function (event) {
+  //   if (event.target == modal) {
+  //     modal.style.display = "none";
+  //   }
+  // }
 })
 
 const toBase64 = (file) => {
