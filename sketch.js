@@ -43,7 +43,7 @@ class SketchClass {
         document.getElementById('percent').innerHTML = score.percent + '%';
         document.getElementById('score-container').style.display = 'block';
         document.getElementById("myModal").style.display = 'block';
-      }, 1500)
+      }, 1000)
 
     })
   }
