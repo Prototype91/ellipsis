@@ -103,7 +103,6 @@ function createBall(frequency) {
       const pourcentage = (score / maxScore) * 100;
       document.querySelector('#score').innerHTML = Math.ceil(pourcentage) + '%';
       if (pourcentage < 50 && maxScore > 20) {
-        sketch.stopMusic();
         document.querySelector('#myModal').style.display = 'block';
         document.querySelector('#game-over').style.display = 'block';
       }
