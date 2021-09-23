@@ -1,195 +1,234 @@
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="images/favicon.ico" />
-    <title>Ellipsis</title>
-    <script
-      defer
-      src="https://cdnjs.cloudflare.com/ajax/libs/rythm.js/2.2.5/rythm.min.js"
-    ></script>
-    <script defer src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
-    <script defer src="https://pixijs.download/release/pixi.js"></script>
-    <script defer src="js/upload.js"></script>
-    <script defer src="./sketch.js"></script>
-    <script defer src="./canvasHandler.js"></script>
+​
+<head>
+  <meta charset="UTF-8">
+  <title>Ellipsis</title>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/rythm.js/2.2.5/rythm.min.js"></script>
+  <script defer src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+  <script defer src="https://pixijs.download/release/pixi.js"></script>
+  <script defer src="js/upload.js"></script>
+  <script defer src="./sketch.js"></script>
+  <script defer src="./canvasHandler.js"></script>
+​
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+​
+  <style>
+    @font-face {
+      font-family: gemunu;
+      src: url(./font/GemunuLibre-Light.ttf);
+    }
 
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <style>
-      @font-face {
-        font-family: gemunu;
-        src: url(./font/GemunuLibre-Light.ttf);
+    body {
+      margin: 0;
+      cursor: crosshair;
+      background-color: #000;
+      font-family: 'gemunu', sans-serif;
+    }
+​
+    .rythm {
+      display: none;
+    }
+​
+    #score {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #000;
+      z-index: 2;
+      background-color: #fff;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+      vertical-align: middle;
+      text-align: center;
+      line-height: 50px;
+    }
+​
+    .modal {
+      cursor: initial;
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgb(0, 0, 0);
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+​
+    /* Modal Content/Box */
+    .modal-content {
+      background-color: black;
+      color: white;
+      border-radius: 20px;
+      margin: 15% auto;
+      padding: 20px;
+      border: 2px solid white;
+      width: 80%;
+      max-width: 1000px;
+    }
+​
+    th, td {
+      color: white !important;
+      font-weight: normal;
+    }
+​
+    th {
+      font-weight: normal;
+    }
+​
+    .neon-custom {
+      z-index: -1;
+      position: fixed;
+      border-radius: 50%;
+      width: 505px;
+      height: 505px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 160px;
+    }
+​
+    section#intro {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+​
+    .dot {
+      height: 150px;
+      width: 150px;
+      border: 2.3px solid white;
+      background-color: transparent;
+      border-radius: 50%;
+      display: inline-block;
+      transform: scale(1);
+      transition: scale ease .5s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+​
+    #title {
+      display: none;
+      font-size: 32px;
+      color: white;
+      animation: blink-animation 1s steps(2, start) infinite;
+      -webkit-animation: blink-animation 1s steps(2, start) infinite;
+      font-family: 'gemunu', sans-serif;
+    }
+​
+    @keyframes blink-animation {
+      to {
+        visibility: hidden;
       }
-
-      body {
-        margin: 0;
-        cursor: crosshair;
-        background-color: #000;
+    }
+    @-webkit-keyframes blink-animation {
+      to {
+        visibility: hidden;
       }
-
-      .rythm {
-        display: none;
-      }
-
-      #score {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: #000;
-        z-index: 2;
-        background-color: #fff;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        font-size: 20px;
-        vertical-align: middle;
-        text-align: center;
-        line-height: 50px;
-      }
-
-      .modal {
-        cursor: initial;
-        display: none;
-        position: fixed;
-        z-index: 10;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgb(0, 0, 0);
-        background-color: rgba(0, 0, 0, 0.4);
-      }
-
-      /* Modal Content/Box */
-      .modal-content {
-        background-color: black;
-        color: white;
-        border-radius: 20px;
-        margin: 15% auto;
-        padding: 20px;
-        border: 2px solid white;
-        width: 80%;
-        max-width: 1000px;
-      }
-
-      .neon-custom {
-        z-index: -1;
-        position: fixed;
-        border-radius: 50%;
-        width: 505px;
-        height: 505px;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 160px;
-      }
-
-      section#intro {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-      }
-
-      .dot {
-        height: 150px;
-        width: 150px;
-        border: 2.3px solid white;
-        background-color: transparent;
-        border-radius: 50%;
-        display: inline-block;
-        transform: scale(1);
-        transition: scale ease 0.5s;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      #title {
-        display: none;
-        font-size: 32px;
-        color: white;
-        animation: blink-animation 1s steps(2, start) infinite;
-        -webkit-animation: blink-animation 1s steps(2, start) infinite;
-        font-family: "gemunu", sans-serif;
-      }
-
-      @keyframes blink-animation {
-        to {
-          visibility: hidden;
-        }
-      }
-      @-webkit-keyframes blink-animation {
-        to {
-          visibility: hidden;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <section id="intro">
-      <span class="dot">
-        <span id="title">Ellipsis</span>
-      </span>
-    </section>
-    <section id="game" style="display: none">
-      <div class="rythm-bass"></div>
-      <div class="neon-custom"></div>
-      <div id="myModal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-          <div id="no-chrome" style="display: none">
-            <h2>Ce jeu fonctionne uniquement sur un navigateur Chromium</h2>
-          </div>
-          <div id="game-over" style="display: none">
-            <h2>
-              GAME OVER, vous n'avez pas su attraper plus de 50% des notes ...
-            </h2>
-          </div>
-          <div id="score-container" style="display: none">
-            <span id="rank">F</span>
-            <p>Pourcentage de réussite : <span id="percent"></span></p>
-            <table>
-              <tr>
-                <th>Notes réussies</th>
-                <th>Notes ratées</th>
-                <th>Notes totales</th>
-              </tr>
-              <tr>
-                <td id="notes-succeed"></td>
-                <td id="notes-failed"></td>
-                <td id="notes-total"></td>
-              </tr>
-            </table>
-          </div>
-          <form id="form" style="display: none">
-            <h2>Choisissez une musique</h2>
-            <label for="file">Fichier</label>
-            <input type="file" name="file" id="file" />
-
-            <input type="submit" value="Charger" />
-            <p id="error"></p>
-          </form>
+    }
+​
+    #score-container {
+      text-align: center;
+    }
+​
+    #rank {
+      border: 3px solid white;
+      border-radius: 50%;
+      padding: 5px 20px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 50px;
+    }
+​
+    p {
+      font-size: 20px;
+    }
+​
+    select {
+      color: white;
+    }
+    option {
+      color: black;
+    }
+​
+  </style>
+</head>
+​
+<body>
+  <section id="intro">
+    <span class="dot">
+      <span id="title">Ellipsis</span>
+    </span>
+  </section>
+  <section id="game" style="display: none;">
+    <div class="rythm-bass"></div>
+    <div class="neon-custom"></div>
+    <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <div id="no-chrome" style="display: none;">
+          <h2>Ce jeu fonctionne uniquement sur un navigateur Chromium</h2>
         </div>
+        <div id="game-over" style="display: none;">
+          <h2>GAME OVER, vous n'avez pas su attraper plus de 50% des notes ...</h2>
+        </div>
+        <div id="score-container" style="display: none;">
+          <span id="rank">F</span>
+          <p>Pourcentage de réussite : <span id="percent"></span></p>
+          <table>
+            <tr>
+              <th>Notes réussies</th>
+              <th>Notes ratées</th>
+              <th>Notes totales</th>
+            </tr>
+            <tr>
+              <td id="notes-succeed"></td>
+              <td id="notes-failed"></td>
+              <td id="notes-total"></td>
+            </tr>
+          </table>
+        </div>
+        <form id="form" style="display: none;">
+          <h2>Choisissez une musique</h2>
+          <label for="file">Fichier</label>
+          <input type="file" name="file" id="file">
+​
+          <label for="musics">Nos musiques</label>
+          <select name="musics" id="musics">
+            <option value="">-- Choisir une musique --</option>
+            <option value="./musics/scc-ttp.mp3">Salut c'est cool - Techno toujours pareil</option>
+            <option value="./musics/pf-bu">Party Favor - Bap U</option>
+            <option value="./musics/vc-a.mp3">Vladimir Cauchemar - Aulos</option>
+            <option value="./musics/kpm-bb.mp3">KAKU P-MODEL - Big Brother</option>
+            <option value="./musics/"></option>
+            <option value="./musics/"></option>
+            <option value="./musics/"></option>
+            <option value="./musics/"></option>
+​
+          </select>
+​
+          <input type="submit" value="Charger">
+          <p id="error"></p>
+        </form>
+​
       </div>
-
-      <span id="score">0%</span>
-    </section>
-  </body>
+​
+    </div>
+​
+    <span id="score">0%</span>
+  </section>
+​
+</body>
+​
 </html>
