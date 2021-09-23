@@ -19,9 +19,8 @@ body {
   left: 50%;
   z-index: -1;
   transform: translate(-50%, -50%);
-  outline: 3px solid white;
   border: 3px solid white;
-  outline-offset: -1px;
+  box-shadow: 0 0 0 3px #fff;
 }
 
 #replay:hover {

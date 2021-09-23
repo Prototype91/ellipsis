@@ -5,7 +5,7 @@ const neonCustom = (elem, value, options = {}) => {
   const min = options.min;
   const borderWidth = (max - min) * value + min
   elem.style.borderWidth = borderWidth + 'px'; 
-  elem.style.outline = borderWidth + 'px solid #fff';
+  elem.style.outline = borderWidth + 'px solid #fff, 0 0 0 3px #fff';
 }
 
 const resetNeonCustom = elem => {
@@ -54,6 +54,7 @@ class PlayerClass {
       const stream = stream_dest.stream;
       this.startPitch(stream);
     }
+    this.audio.volume = 0.5;
     this.audio.play();
     this.rythm.start();
 
@@ -61,15 +62,18 @@ class PlayerClass {
       setTimeout(() => {
         const score = game.getScore();
         this.reset();
-
+        let voice = new Audio('./sounds/nul.mp3');;
         let rank = 'F';
 
         if (score.percent >= 95) {
           rank = 'S';
+          voice = new Audio('./sounds/presque.mp3');
         } else if (score.percent >= 90) {
           rank = 'A';
+          voice = new Audio('./sounds/presque2.mp3');
         } else if (score.percent >= 80) {
           rank = 'B';
+          voice = new Audio('./sounds/presque2.mp3');
         } else if (score.percent >= 70) {
           rank = 'C'
         } else if (score.percent >= 60) {
@@ -85,6 +89,8 @@ class PlayerClass {
         document.getElementById("myModal").style.display = 'block';
         document.getElementById("form").style.display = 'none';
         document.getElementById("replay").style.display = 'block';
+        voice.volume = 1;
+        voice.play();
       }, 1000)
 
     })

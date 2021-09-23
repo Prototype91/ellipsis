@@ -16,10 +16,17 @@ document.addEventListener('DOMContentLoaded', () => {
   intro.addEventListener('click', () => {
     intro.style.display = "none";
     game.style.display = "block";
+    let voice = new Audio('./sounds/choisir.mp3');
+    voice.volume = 1;
+    voice.play();
   })
 
   let zoom = 1;
   let circleWidth = 150;
+
+  
+  let voice = new Audio('./sounds/ellipsis.mp3');
+  voice.volume = 1;
 
   interval = setInterval(function () {
     zoom += 0.01;
@@ -29,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (circleWidth * zoom >= 500) {
       let title = document.getElementById('title');
       title.style.display = "block";
+      voice.play();
       clearInterval(interval);
       setTimeout(() => {
         if (intro.style.display != 'none') {
