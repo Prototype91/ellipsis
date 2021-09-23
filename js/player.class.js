@@ -1,3 +1,20 @@
+const neonCustom = (elem, value, options = {}) => {
+  elem.style.boxShadow = `0 0 100px ${value * 12}px #fff`;
+
+  const max = options.max;
+  const min = options.min;
+  const borderWidth = (max - min) * value + min
+  elem.style.borderWidth = borderWidth + 'px'; 
+  elem.style.outline = borderWidth + 'px solid #fff';
+}
+
+const resetNeonCustom = elem => {
+  elem.style.boxShadow = '';
+  elem.style.outline = '';
+  elem.style.borderWidth = '';
+}
+
+
 class PlayerClass {
 
   pitch = null;
@@ -9,6 +26,10 @@ class PlayerClass {
     this.audioContext = new AudioContext();
     this.audio = new Audio(url);
     this.rythm.setMusic(url);
+    this.rythm.addRythm('game-circle', { dance: neonCustom, reset: resetNeonCustom }, 0, 10, {
+      min: 3,
+      max: 8,
+    });
   }
 
   reset () {
@@ -91,7 +112,7 @@ class PlayerClass {
   }
 
   async getPitch() {
-    let isFrequency = false
+    let isFrequency = false;
     while (!isFrequency) {
       const frequency = await this.pitch.getPitch();
       if (frequency) {

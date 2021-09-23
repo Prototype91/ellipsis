@@ -89,16 +89,18 @@
       font-weight: normal;
     }
 
-    .neon-custom {
-      z-index: -1;
+    .game-circle {
+      width: 500px;
+      height: 500px;
       position: fixed;
       border-radius: 50%;
-      width: 505px;
-      height: 505px;
       top: 50%;
       left: 50%;
+      z-index: -1;
       transform: translate(-50%, -50%);
-      font-size: 160px;
+      outline: 3px solid white;
+      border: 3px solid white;
+      outline-offset: -1px;
     }
 
     section#intro {
@@ -188,6 +190,10 @@
       display: none;
     }
 
+    a:hover {
+      color: #fff;
+    }
+
     table {
       display: table;
     }
@@ -204,6 +210,7 @@
   <section id="game" style="display: none;">
     <div class="rythm-bass"></div>
     <div class="neon-custom"></div>
+    <div class="game-circle"></div>
     <div id="myModal" class="modal">
       <!-- Modal content -->
       <div class="modal-content">

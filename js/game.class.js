@@ -17,7 +17,7 @@ class GameClass {
     this.triangleWidth = 50;
 
     this.app = null;
-    this.app = new PIXI.Application({ width: window.innerWidth, height: window.innerHeight, resizeTo: window, antialias: true, backgroundAlpha: 0 });
+    this.app = new PIXI.Application({ width: window.innerWidth, height: window.innerHeight, resizeTo: window, antialias: true, transparent: true });
     this.gameContainer.appendChild(this.app.view);
 
     this.burst = new mojs.Burst({
@@ -85,26 +85,12 @@ class GameClass {
   }
 
   start () {
-    const gameCircle = this.createCircle(this.CIRCLE_SIZE, 0x00000, 0xffffff);
+    //const gameCircle = this.createCircle(this.CIRCLE_SIZE, 0x00000, 0xffffff);
     this.createArc();
 
-    const rhythmWrapper = document.querySelector('.rythm-bass');
-    const neon = document.querySelector('.neon-custom');
-
-    this.app.ticker.add(() => {
-      if (rhythmWrapper.style.transform) {
-        let pulse = rhythmWrapper.style.transform.split('(')[1].split(')')[0];
-        pulse = (pulse * 10) - 3;
-
-        gameCircle.child.clear();
-        gameCircle.child.lineStyle(pulse, 0xffffff, 1);
-        gameCircle.child.beginFill(0x00000, 1);
-        gameCircle.child.drawEllipse(this.WIDTH_CENTER, this.HEIGHT_CENTER, this.CIRCLE_SIZE, this.CIRCLE_SIZE);
-        gameCircle.child.endFill();
-
-        neon.style.boxShadow = `#fff 0 0 100px ${pulse * 3}px`;
-      }
-    });
+    const ticker = PIXI.Ticker.shared;
+    ticker.autoStart = false;
+    ticker.stop();
   }
 
   createBall(frequency) {
