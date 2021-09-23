@@ -2,22 +2,26 @@ class SketchClass {
 
   pitch = null
 
-  constructor() {
+  constructor(url) {
     this.audioContext = new AudioContext();
-    this.audio = document.getElementById('audio');
+    this.audio = new Audio(url);
     this.setup();
   }
 
   setup() {
     this.audio.onplay = () => {
-      const stream = audio.captureStream();
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const stream_dest = ctx.createMediaStreamDestination();
+      const source = ctx.createMediaElementSource(this.audio);
+      source.connect(stream_dest);
+
+      const stream = stream_dest.stream;
       this.startPitch(stream)
     }
     // this.audio.volume = 0.001;
     this.audio.play();
     this.audio.addEventListener('ended', () => {
       setTimeout(() => {
-        console.log('ended');
         const score = getScore();
         let rank = 'F';
         if (score.percent >= 95) {

@@ -52,26 +52,20 @@ function main() {
   createArc(); 
 
   const rhythmWrapper = document.querySelector('.rythm-bass');
+  const neon = document.querySelector('.neon-custom');
   
   app.ticker.add(() => {
     if (rhythmWrapper.style.transform) {
-      const pulse = rhythmWrapper.style.transform.split('(')[1].split(')')[0];
+      let pulse = rhythmWrapper.style.transform.split('(')[1].split(')')[0];
+      pulse = (pulse * 10) - 3;
+
       gameCircle.child.clear();
-      gameCircle.child.lineStyle((pulse * 10) - 3, 0xffffff, 1);
+      gameCircle.child.lineStyle(pulse, 0xffffff, 1);
       gameCircle.child.beginFill(0x00000, 1);
       gameCircle.child.drawEllipse(WIDTH_CENTER, HEIGHT_CENTER, CIRCLE_SIZE, CIRCLE_SIZE);
       gameCircle.child.endFill();
 
-      const neon = (elem, value, options = {}) => {
-        elem.style.boxShadow = `#fff 0 0 100px ${((value + 1) * 10) - 5}px`;
-      }
-
-      const resetNeon = elem => {
-        elem.style.boxShadow = '';
-      }
-
-      rythm.addRythm('neon-custom', { dance: neon, reset: resetNeon }, 0, 10)
-
+      neon.style.boxShadow = `#fff 0 0 100px ${pulse * 3}px`;
     }
   });
 }
@@ -108,7 +102,6 @@ function createBall (frequency) {
       }
       const pourcentage = (score / maxScore) * 100;
       document.querySelector('#score').innerHTML = Math.ceil(pourcentage) + '%';
-      console.log(pourcentage, maxScore);
       if (pourcentage < 50 && maxScore > 20) {
         document.querySelector('#myModal').style.display = 'block';
         document.querySelector('#game-over').style.display = 'block';

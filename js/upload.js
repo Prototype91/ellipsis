@@ -44,8 +44,7 @@ const toBase64 = (file) => {
   const reader = new FileReader();
    reader.readAsDataURL(file);
    reader.onload = function () {
-    document.getElementById('audio').src = reader.result;
-    let sketch = new SketchClass();
+    let sketch = new SketchClass(reader.result);
     rythm.setMusic(reader.result);
     rythm.start();
    };
