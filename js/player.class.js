@@ -1,14 +1,18 @@
-class SketchClass {
+class PlayerClass {
 
-  pitch = null
+  pitch = null;
+  rythm = new Rythm();
+  game = null;
+  interval = null;
 
   constructor(url) {
     this.audioContext = new AudioContext();
     this.audio = new Audio(url);
-    this.setup();
+    this.rythm.setMusic(url);
   }
 
-  setup() {
+  start(game) {
+    this.game = game;
     this.audio.onplay = () => {
       const ctx = new (window.AudioContext || window.webkitAudioContext)();
       const stream_dest = ctx.createMediaStreamDestination();
@@ -16,13 +20,14 @@ class SketchClass {
       source.connect(stream_dest);
 
       const stream = stream_dest.stream;
-      this.startPitch(stream)
+      this.startPitch(stream);
     }
     this.audio.play();
+    this.rythm.start();
 
     this.audio.addEventListener('ended', () => {
       setTimeout(() => {
-        const score = getScore();
+        const score = game.getScore();
         let rank = 'F';
         if (score.percent >= 95) {
           rank = 'S';
@@ -58,7 +63,8 @@ class SketchClass {
   }
 
   listenPitch() {
-    setInterval(() => {
+    console.log('listenPitch')
+    this.interval = setInterval(() => {
       this.getPitch()
     }, 300)
   }
@@ -70,10 +76,10 @@ class SketchClass {
   async getPitch() {
     let isFrequency = false
     while (!isFrequency) {
-      const frequency = await this.pitch.getPitch()
+      const frequency = await this.pitch.getPitch();
       if (frequency) {
-        createBall(frequency)
-        isFrequency = true
+        this.game.createBall(frequency);
+        isFrequency = true;
       }
     }
   }

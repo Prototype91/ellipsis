@@ -54,20 +54,20 @@ function main() {
   const rhythmWrapper = document.querySelector('.rythm-bass');
   const neon = document.querySelector('.neon-custom');
 
-  app.ticker.add(() => {
-    if (rhythmWrapper.style.transform) {
-      let pulse = rhythmWrapper.style.transform.split('(')[1].split(')')[0];
-      pulse = (pulse * 10) - 3;
+  // app.ticker.add(() => {
+  //   if (rhythmWrapper.style.transform) {
+  //     let pulse = rhythmWrapper.style.transform.split('(')[1].split(')')[0];
+  //     pulse = (pulse * 10) - 3;
 
-      gameCircle.child.clear();
-      gameCircle.child.lineStyle(pulse, 0xffffff, 1);
-      gameCircle.child.beginFill(0x00000, 1);
-      gameCircle.child.drawEllipse(WIDTH_CENTER, HEIGHT_CENTER, CIRCLE_SIZE, CIRCLE_SIZE);
-      gameCircle.child.endFill();
+  //     gameCircle.child.clear();
+  //     gameCircle.child.lineStyle(pulse, 0xffffff, 1);
+  //     gameCircle.child.beginFill(0x00000, 1);
+  //     gameCircle.child.drawEllipse(WIDTH_CENTER, HEIGHT_CENTER, CIRCLE_SIZE, CIRCLE_SIZE);
+  //     gameCircle.child.endFill();
 
-      neon.style.boxShadow = `#fff 0 0 100px ${pulse * 3}px`;
-    }
-  });
+  //     neon.style.boxShadow = `#fff 0 0 100px ${pulse * 3}px`;
+  //   }
+  // });
 }
 
 function createBall(frequency) {
