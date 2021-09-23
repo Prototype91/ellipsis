@@ -1,16 +1,13 @@
 const neonCustom = (elem, value, options = {}) => {
-  elem.style.boxShadow = `0 0 100px ${value * 12}px #fff`;
-
   const max = options.max;
   const min = options.min;
   const borderWidth = (max - min) * value + min
-  elem.style.borderWidth = borderWidth + 'px'; 
-  elem.style.outline = borderWidth + 'px solid #fff, 0 0 0 3px #fff';
+  elem.style.borderWidth = borderWidth + 'px';
+  elem.style.boxShadow = `0 0 100px ${value * 12}px #fff, -1px -1px 0 ${borderWidth}px #fff`;
 }
 
 const resetNeonCustom = elem => {
   elem.style.boxShadow = '';
-  elem.style.outline = '';
   elem.style.borderWidth = '';
 }
 
@@ -27,7 +24,7 @@ class PlayerClass {
     this.rythm.setMusic(url);
     this.rythm.addRythm('game-circle', { dance: neonCustom, reset: resetNeonCustom }, 0, 10, {
       min: 3,
-      max: 8,
+      max: 6,
     });
   }
 
