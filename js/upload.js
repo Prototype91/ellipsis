@@ -9,6 +9,33 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#form').style.display = 'block';
   }
 
+  let intro = document.getElementById('intro')
+  let game = document.getElementById('game')
+  intro.addEventListener('click', () => {
+    intro.style.display = "none";
+    game.style.display = "block";
+  })
+
+  let zoom = 1;
+  let circleWidth = 50;
+  intervall = setInterval(function() {
+    zoom += 0.02;
+    let dot = document.querySelector(".dot")
+    dot.style.transform = "scale(" + zoom + ")";
+
+    if (circleWidth * zoom >= 500) {
+      let title = document.getElementById('title');
+      title.style.display = "block";
+      clearInterval(intervall);
+      setTimeout(() => {
+        if (intro.style.display != 'none') {
+          intro.click();
+        }
+      }, 5000)
+      
+    }
+  }, 10);
+
 
   const input = document.getElementById('file');
 
