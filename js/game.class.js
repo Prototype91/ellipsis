@@ -13,7 +13,7 @@ class GameClass {
 
     this.gameContainer = document.getElementById('game-container');
     this.gameContainer.innerHTML = '';
-    this.arcWrapper = new PIXI.Container();
+    this.arcWrapper = new PIXI.Graphics();
     this.triangleWidth = 50;
 
     this.app = null;
@@ -33,51 +33,20 @@ class GameClass {
     });
   }
 
-  createCircle() {
-    let circleWrapper = new PIXI.Container();
-
-    let circle = new PIXI.Graphics();
-    circle.lineStyle(8, 0xffffff, 1);
-    circle.beginFill(0x000000, 1);
-    circle.drawEllipse(this.widthCenter, this.heightCenter, this.circleSize, this.circleSize);
-    circle.endFill();
-
-    circleWrapper.addChild(circle);
-
-    this.app.stage.addChild(circleWrapper);
-
-    return {
-      parent: circleWrapper,
-      child: circle
-    };
-  }
-
   createNote() {
-    let circleWrapper = new PIXI.Container();
-
     let ball = new PIXI.Graphics();
     ball.lineStyle(8, 0xffffff, 1);
     ball.beginFill(0xffffff, 1);
     ball.drawEllipse(this.widthCenter, this.heightCenter, this.noteSize, this.noteSize);
     ball.endFill();
+    this.app.stage.addChild(ball);
 
-    circleWrapper.addChild(ball);
-
-    this.app.stage.addChild(circleWrapper);
-
-    return {
-      parent: circleWrapper,
-      child: ball
-    };
+    return ball;
   }
 
   createArc() {
-    const arc = new PIXI.Graphics();
-
-    arc.lineStyle(15, 0x9b4dca, 1);
-    arc.arc(0, 0, this.circleSize, -1 / 4, 1 / 4);
-
-    this.arcWrapper.addChild(arc);
+    this.arcWrapper.lineStyle(15, 0x9b4dca, 1);
+    this.arcWrapper.arc(0, 0, this.circleSize, -1 / 4, 1 / 4);
 
     this.arcWrapper.position.set(this.widthCenter, this.heightCenter);
 
@@ -85,7 +54,6 @@ class GameClass {
   }
 
   start () {
-    //const gameCircle = this.createCircle(this.CIRCLE_SIZE, 0x00000, 0xffffff);
     this.createArc();
 
     const ticker = PIXI.Ticker.shared;
@@ -94,7 +62,7 @@ class GameClass {
   }
 
   createBall(frequency) {
-    let note = this.createNote(this.noteSize, 0xFFFFFF, 0xFFFFFF).parent;
+    let note = this.createNote(this.noteSize, 0xFFFFFF, 0xFFFFFF);
 
     const rad = (360 * Math.PI * frequency) / (800 * 180);
 
