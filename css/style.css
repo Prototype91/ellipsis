@@ -184,6 +184,11 @@ a {
   display: none;
 }
 
+button, input[type="submit"] {
+  background-color: deeppink !important;
+  border-color: deeppink !important;
+}
+
 table {
   display: table;
 }
