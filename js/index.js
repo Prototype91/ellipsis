@@ -94,9 +94,18 @@ const startGame = (url) => {
   game.start();
   
   if (!init) {
-    document.addEventListener('mousemove', (e) => {
-      game.setRotationArcWrapper(e.clientX, e.clientY);
-    });
+    console.log(window.innerWidth);
+    if (window.innerWidth <= 768) {
+      document.addEventListener('click', (e) => {
+        console.log(e.clientX);
+        game.setRotationArcWrapper(e.clientX, e.clientY);
+      });
+    } else {
+      document.addEventListener('mousemove', (e) => {
+        game.setRotationArcWrapper(e.clientX, e.clientY);
+      });
+    }
+
     init = false;
   }
 
