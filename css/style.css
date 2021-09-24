@@ -165,8 +165,8 @@ option {
 }
 
 a {
-  background-color: deeppink;
-  border: 0.1rem solid deeppink;
+  background-color: #f95e1b;
+  border: 0.1rem solid #f95e1b;
   border-radius: 0.4rem;
   color: #fff;
   cursor: pointer;
@@ -185,8 +185,8 @@ a {
 }
 
 button, input[type="submit"] {
-  background-color: deeppink !important;
-  border-color: deeppink !important;
+  background-color: #f95e1b !important;
+  border-color: #f95e1b !important;
 }
 
 table {

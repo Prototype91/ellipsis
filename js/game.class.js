@@ -54,7 +54,7 @@ class GameClass {
   }
 
   createArc() {
-    this.arcWrapper.lineStyle(15, 0xFF1493, 1);
+    this.arcWrapper.lineStyle(15, 0xf95e1b, 1);
     this.arcWrapper.arc(0, 0, this.circleSize, -1 / 4, 1 / 4);
 
     this.arcWrapper.position.set(this.widthCenter, this.heightCenter);
