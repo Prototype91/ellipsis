@@ -88,7 +88,7 @@ class PlayerClass {
         document.getElementById("replay").style.display = 'block';
         voice.volume = 1;
         voice.play();
-      }, 1000)
+      }, 2000)
 
     })
   }
@@ -103,6 +103,7 @@ class PlayerClass {
   }
 
   listenPitch() {
+    this.getPitch()
     this.interval = setInterval(() => {
       this.getPitch()
     }, 300)
@@ -113,6 +114,7 @@ class PlayerClass {
   }
 
   async getPitch() {
+    console.log('getPitch');
     let isFrequency = false;
     while (!isFrequency) {
       const frequency = await this.pitch.getPitch();
