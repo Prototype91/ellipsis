@@ -88,7 +88,7 @@ class PlayerClass {
         document.getElementById("replay").style.display = 'block';
         voice.volume = 1;
         voice.play();
-      }, 1000)
+      }, 2000)
 
     })
   }
