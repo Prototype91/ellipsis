@@ -7,6 +7,7 @@ class GameClass {
   score = 0;
   maxScore = 0;
   failNotes = 0;
+  gameOver = false;
 
   constructor(player) {
     this.player = player;
@@ -54,6 +55,7 @@ class GameClass {
   }
 
   start () {
+    this.gameOver = false;
     this.createArc();
 
     const ticker = PIXI.Ticker.shared;
@@ -98,12 +100,17 @@ class GameClass {
         const pourcentage = (this.score / this.maxScore) * 100;
         document.querySelector('#score').innerHTML = Math.ceil(pourcentage) + '%';
 
-        if (pourcentage < 50 && this.maxScore > 30) {
+        if (pourcentage < 50 && this.maxScore > 30 && !this.gameOver) {
+          this.gameOver = true;
           this.player.reset();
           document.querySelector('#myModal').style.display = 'block';
           document.querySelector('#game-over').style.display = 'block';
           document.getElementById("form").style.display = 'none';
           document.getElementById("replay").style.display = 'block';
+
+          let voice = new Audio('./sounds/bad.mp3');
+          voice.volume = 1;
+          voice.play();
         }
 
         note.destroy({ children: true, texture: true, baseTexture: true });
