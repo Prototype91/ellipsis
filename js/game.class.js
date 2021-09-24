@@ -7,6 +7,7 @@ class GameClass {
   score = 0;
   maxScore = 0;
   failNotes = 0;
+  gameOver = false;
 
   constructor(player) {
     this.player = player;
@@ -19,6 +20,8 @@ class GameClass {
     this.app = null;
     this.app = new PIXI.Application({ width: window.innerWidth, height: window.innerHeight, resizeTo: window, antialias: true, transparent: true });
     this.gameContainer.appendChild(this.app.view);
+
+    this.colors = [0xFF1493, 0x00FFFF, 0xFFFF00];
 
     this.burst = new mojs.Burst({
       radius: { 0: 50 },
@@ -33,10 +36,16 @@ class GameClass {
     });
   }
 
+  generateColor() {
+      return this.colors[Math.floor(Math.random() * this.colors.length)];
+  }
+
   createNote() {
+
     let ball = new PIXI.Graphics();
-    ball.lineStyle(8, 0xffffff, 1);
-    ball.beginFill(0xffffff, 1);
+    const color = this.generateColor();
+    ball.lineStyle(8, color, 1);
+    ball.beginFill(color, 1);
     ball.drawEllipse(this.widthCenter, this.heightCenter, this.noteSize, this.noteSize);
     ball.endFill();
     this.app.stage.addChild(ball);
@@ -45,7 +54,7 @@ class GameClass {
   }
 
   createArc() {
-    this.arcWrapper.lineStyle(15, 0x9b4dca, 1);
+    this.arcWrapper.lineStyle(15, 0xFF1493, 1);
     this.arcWrapper.arc(0, 0, this.circleSize, -1 / 4, 1 / 4);
 
     this.arcWrapper.position.set(this.widthCenter, this.heightCenter);
@@ -54,6 +63,7 @@ class GameClass {
   }
 
   start () {
+    this.gameOver = false;
     this.createArc();
 
     const ticker = PIXI.Ticker.shared;
@@ -98,12 +108,17 @@ class GameClass {
         const pourcentage = (this.score / this.maxScore) * 100;
         document.querySelector('#score').innerHTML = Math.ceil(pourcentage) + '%';
 
-        if (pourcentage < 50 && this.maxScore > 30) {
+        if (pourcentage < 50 && this.maxScore > 30 && !this.gameOver) {
+          this.gameOver = true;
           this.player.reset();
           document.querySelector('#myModal').style.display = 'block';
           document.querySelector('#game-over').style.display = 'block';
           document.getElementById("form").style.display = 'none';
           document.getElementById("replay").style.display = 'block';
+
+          let voice = new Audio('./sounds/bad.mp3');
+          voice.volume = 1;
+          voice.play();
         }
 
         note.destroy({ children: true, texture: true, baseTexture: true });
