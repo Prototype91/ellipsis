@@ -59,7 +59,7 @@ class PlayerClass {
       setTimeout(() => {
         const score = game.getScore();
         this.reset();
-        let voice = new Audio('./sounds/nul.mp3');;
+        let voice = new Audio('./sounds/bad.mp3');;
         let rank = 'F';
 
         if (score.percent >= 95) {
