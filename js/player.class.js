@@ -3,7 +3,7 @@ const neonCustom = (elem, value, options = {}) => {
   const min = options.min;
   const borderWidth = (max - min) * value + min
   elem.style.borderWidth = borderWidth + 'px';
-  elem.style.boxShadow = `0 0 100px ${borderWidth * 8}px #fff, -1px -1px 0 ${borderWidth}px #fff`;
+  elem.style.boxShadow = `0 0 100px ${borderWidth * 8}px #fff, 0 0 0 ${borderWidth}px #fff`;
 }
 
 const resetNeonCustom = elem => {
