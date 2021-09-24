@@ -114,7 +114,6 @@ class PlayerClass {
   }
 
   async getPitch() {
-    console.log('getPitch');
     let isFrequency = false;
     while (!isFrequency) {
       const frequency = await this.pitch.getPitch();

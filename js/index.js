@@ -94,10 +94,8 @@ const startGame = (url) => {
   game.start();
   
   if (!init) {
-    console.log(window.innerWidth);
     if (window.innerWidth <= 768) {
       document.addEventListener('click', (e) => {
-        console.log(e.clientX);
         game.setRotationArcWrapper(e.clientX, e.clientY);
       });
     } else {
